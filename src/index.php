@@ -45,6 +45,12 @@
 
                 <?php endif; ?>
 
+                <?php if($loggedIn && $_SESSION['es_admin']): ?>
+
+                    <a>Admin</a>
+
+                <?php endif; ?>
+
             </span>
 
         </nav>

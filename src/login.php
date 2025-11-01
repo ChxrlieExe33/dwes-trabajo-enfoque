@@ -12,8 +12,6 @@
 
         if ($authenticated) {
 
-            $_SESSION["username"] = 'Charlie';
-
             header("Location: /dwes-trabajo-enfoque/src/index.php");
 
         }
