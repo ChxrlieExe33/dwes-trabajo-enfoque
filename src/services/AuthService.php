@@ -27,7 +27,7 @@ class AuthService {
                 die("Pass incorrect");
             }
 
-            $_SESSION["username"] = $email;
+            $_SESSION["email"] = $email;
             $_SESSION["es_admin"] = true ? $usuario['es_admin'] == 1 : false;
             
             return true;
@@ -39,6 +39,4 @@ class AuthService {
 
     }
 }
-
-
 ?>

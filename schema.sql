@@ -99,3 +99,7 @@ CREATE TABLE productos_compras (
         REFERENCES productos(id_producto)
         ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO usuarios (nombre, apellidos, email, password, fecha_nac, es_admin, direccion_entrega, ciudad_entrega, provincia_entrega, direccion_facturacion, ciudad_facturacion, provincia_facturacion)
+    VALUES ('Charlie', 'Crane', 'charlie@test.com', '$2y$10$CkRpFBOffPJ7M2U76w3IfuIQXqLI7Di7IIkAVn.CDEdOLBO5Kusp6', '2003-06-13', 1,
+    'Prueba dirección', 'Mijas', 'Málaga', 'Prueba dirección', 'Mijas', 'Málaga');

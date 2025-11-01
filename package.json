@@ -1,0 +1,23 @@
+{
+  "name": "dwes-trabajo-enfoque",
+  "version": "1.0.0",
+  "description": "Este proyecto es mi trabajo de enfoque de la asignatura Desarrollo web entorno servidor.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChxrlieExe33/dwes-trabajo-enfoque.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChxrlieExe33/dwes-trabajo-enfoque/issues"
+  },
+  "homepage": "https://github.com/ChxrlieExe33/dwes-trabajo-enfoque#readme",
+  "devDependencies": {
+    "tailwindcss": "^4.1.16"
+  }
+}

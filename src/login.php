@@ -23,7 +23,7 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,6 +51,8 @@
                 <input type="password" name="password" placeholder="Contraseña..." class="px-6 py-2 rounded-2xl outline-none bg-slate-200 w-[80%]">
 
                 <button type="submit" class="px-8 py-2 bg-blue-800 rounded-3xl text-white font-bold cursor-pointer">Submit</button>
+
+                <a href="index.php" class="text-black text-xl font-bold underline hover:text-gray-400">Navegar sin iniciar sesión.</a>
 
             </form>
 
