@@ -43,14 +43,18 @@ class AuthService {
 
         $pdo = DBConnFactory::getConnection();
 
+        $pdo->beginTransaction();
+
         $hash = password_hash($request->getContrasena(), PASSWORD_DEFAULT);
 
-        $sql = 'INSERT INTO usuarios (nombre, apellidos, email, password, es_admin, direccion_entrega, ciudad_entrega, provincia_entrega, direccion_facturacion, ciudad_facturacion, provincia_facturacion) values (:nombre, :apellidos, :email, :pass, 0, :direccion, :ciudad, :provincia, :direccion, :ciudad, :provincia)';
+        $userSql = 'INSERT INTO usuarios (nombre, apellidos, email, password, es_admin, direccion_entrega, ciudad_entrega, provincia_entrega, direccion_facturacion, ciudad_facturacion, provincia_facturacion) values (:nombre, :apellidos, :email, :pass, 0, :direccion, :ciudad, :provincia, :direccion, :ciudad, :provincia)';
+
+        $cartSql = 'INSERT INTO carritos (id_usuario, importe) VALUES (:id_usuario, 0.00)';
 
         try {
 
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
+            $userStmt = $pdo->prepare($userSql);
+            $userStmt->execute([
                 ':nombre' => $request->getNombre(),
                 ':apellidos' => $request->getApellido(),
                 ':email' => $request->getEmail(),
@@ -60,9 +64,20 @@ class AuthService {
                 ':provincia' => $request->getProvincia(),
             ]);
 
+            $customerId = $pdo->lastInsertId();
+
+            $cartStmt = $pdo->prepare($cartSql);
+            $cartStmt->execute([
+                ':id_usuario' => $customerId
+            ]);
+
+            $pdo->commit();
+
             return true;
 
         } catch (PDOException $e) {
+
+            $pdo->rollBack();
 
             die($e->getMessage());
 
