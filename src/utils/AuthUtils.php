@@ -3,7 +3,7 @@
     declare(strict_types=1);
     class AuthUtils {
 
-        public static function isLoggedInAllowAccess(): bool
+        public static function isLoggedInAllowAll(): bool
         {
 
             return isset($_SESSION["email"]);
