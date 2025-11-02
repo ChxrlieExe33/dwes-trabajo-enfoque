@@ -103,3 +103,14 @@ CREATE TABLE productos_compras (
 INSERT INTO usuarios (nombre, apellidos, email, password, fecha_nac, es_admin, direccion_entrega, ciudad_entrega, provincia_entrega, direccion_facturacion, ciudad_facturacion, provincia_facturacion)
     VALUES ('Charlie', 'Crane', 'charlie@test.com', '$2y$10$CkRpFBOffPJ7M2U76w3IfuIQXqLI7Di7IIkAVn.CDEdOLBO5Kusp6', '2003-06-13', 1,
     'Prueba dirección', 'Mijas', 'Málaga', 'Prueba dirección', 'Mijas', 'Málaga');
+
+INSERT INTO productos (`id_producto`, `nombre`, `descripcion`, `precio`, `color`, `nombre_fabricante`) VALUES
+     (1, 'Jordan 1s', 'Zapatos de baloncesto jordan 1.', 120.00, 'Blanco y negro', 'Nike'),
+     (2, 'Panda dunks', 'Panda dunk zapatos', 100.00, 'Blanco y negro', 'Nike'),
+     (3, 'Airmax 95s', 'Zapatos airmax', 180.00, 'Gris', 'Nike');
+
+INSERT INTO multimedia_productos (`id_multimedia`, `id_producto`, `fichero`) VALUES
+       (1, 1, 'jordans.webp'),
+       (2, 2, 'dunks.webp'),
+       (3, 3, 'airmax95.png'),
+       (4, 1, 'jordans2.webp');
