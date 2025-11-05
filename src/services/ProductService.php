@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once "DBConnFactory.php";
 require_once "model/HomepageProduct.php";
+require_once "model/ProductDetail.php";
 
 class ProductService {
 
@@ -26,6 +27,42 @@ class ProductService {
                 $row['precio'],
                 $row['fichero']
             );
+        }, $data);
+
+    }
+
+    public static function getProductDetail(int $id) : ProductDetail {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $sql = 'SELECT * FROM productos WHERE id_producto = :id';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ":id" => $id
+        ]);
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new ProductDetail($data['id_producto'], $data['nombre'], $data['descripcion'], $data['precio'], $data['color'], $data['nombre_fabricante']);
+
+    }
+
+    public static function getProductImages(int $id) : array {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $sql = 'SELECT * FROM multimedia_productos WHERE id_producto = :id';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ":id" => $id
+        ]);
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(function (array $row) {
+           return $row['fichero'];
         }, $data);
 
     }
