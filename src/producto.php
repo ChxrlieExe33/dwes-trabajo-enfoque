@@ -9,6 +9,12 @@
     $id = $_GET['id'];
 
     $productData = ProductService::getProductDetail($id);
+
+    if($productData == null){
+        $message = "No%20se%20encontro%20el%20producto%20con%20id%20$id";
+        header("location: not-found.php?message=$message");
+    }
+
     $productImages = ProductService::getProductImages($id);
 
 ?>

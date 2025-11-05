@@ -19,6 +19,10 @@ class ProductService {
 
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        if(empty($data)) {
+            return [];
+        }
+
         return array_map(function (array $row) {
 
             return new HomepageProduct(
@@ -31,7 +35,7 @@ class ProductService {
 
     }
 
-    public static function getProductDetail(int $id) : ProductDetail {
+    public static function getProductDetail(int $id) : ?ProductDetail {
 
         $pdo = DBConnFactory::getConnection();
 
@@ -43,6 +47,10 @@ class ProductService {
         ]);
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if(empty($data)) {
+            return null;
+        }
 
         return new ProductDetail($data['id_producto'], $data['nombre'], $data['descripcion'], $data['precio'], $data['color'], $data['nombre_fabricante']);
 
@@ -60,6 +68,10 @@ class ProductService {
         ]);
 
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if(empty($data)) {
+            return [];
+        }
 
         return array_map(function (array $row) {
            return $row['fichero'];
