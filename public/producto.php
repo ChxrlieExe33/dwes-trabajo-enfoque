@@ -4,6 +4,8 @@
 
     use Cdcrane\Dwes\Services\ProductService;
 
+    session_start();
+
     if(!isset($_GET["id"])){
         header("location: index.php");
     }
@@ -13,7 +15,7 @@
     $productData = ProductService::getProductDetail($id);
 
     if($productData == null){
-        $message = "No%20se%20encontro%20el%20producto%20con%20id%20$id";
+        $message = "No se encontro el producto con ID $id";
         header("location: not-found.php?message=$message");
     }
 
@@ -31,35 +33,121 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.getElementById('carousel');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            const totalImages = carousel.children.length;
+            if (totalImages === 0) {
+                console.warn('No images in the carousel.');
+                return;
+            }
+
+            let index = 0;
+            let autoSlideTimer = null;
+
+            function setTransformX(el, value) {
+                el.style.transform = value;
+                el.style.webkitTransform = value;
+            }
+
+            function updateCarousel() {
+                const translate = `translateX(-${index * 100}%)`;
+                setTransformX(carousel, translate);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                index = (index - 1 + totalImages) % totalImages;
+                updateCarousel();
+                resetAutoSlide();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                index = (index + 1) % totalImages;
+                updateCarousel();
+                resetAutoSlide();
+            });
+
+            // Optional: Auto-slide every 4 seconds
+            function startAutoSlide() {
+                stopAutoSlide();
+                autoSlideTimer = setInterval(() => {
+                    index = (index + 1) % totalImages;
+                    updateCarousel();
+                }, 4000);
+            }
+            function stopAutoSlide() {
+                if (autoSlideTimer) {
+                    clearInterval(autoSlideTimer);
+                    autoSlideTimer = null;
+                }
+            }
+            function resetAutoSlide() {
+                startAutoSlide();
+            }
+
+            // start
+            updateCarousel();
+            startAutoSlide();
+
+            // Clean up when the page unloads (good practice)
+            window.addEventListener('beforeunload', stopAutoSlide);
+        });
+
+    </script>
 </head>
 
 <body>
 
-    <div class="w-full px-[15%]">
+    <?php include_once 'navbar.php';?>
 
-        <header class="w-full h-[350px] bg-blue-50 flex items-center justify-evenly border-x-1">
+    <div class="w-full px-[15%] flex flex-col md:flex-row items-start justify-between pt-6 md:pt-12">
 
-            <?php foreach ($productImages as $image): ?>
+        <div class="relative w-full max-w-xl overflow-hidden rounded-lg shadow-xl">
+            <!-- Carousel Images -->
+            <div id="carousel" class="flex transition-transform duration-500 ease-in-out">
+                <?php foreach ($productImages as $img): ?>
+                    <img src="/dwes-trabajo-enfoque/src/images/<?php echo htmlspecialchars($img); ?>"
+                         alt="<?php echo htmlspecialchars($img); ?>"
+                         class="w-full flex-shrink-0 object-cover">
+                <?php endforeach; ?>
+            </div>
 
-                <img src="/dwes-trabajo-enfoque/src/images/<?php echo $image; ?>" alt="<?php echo $image; ?>" class="w-[300px] h-[300px] rounded-xl">
+            <!-- Navigation Buttons -->
+            <?php if(count($productImages) > 1): ?>
+            <button id="prevBtn"
+                    class="absolute top-1/2 left-2 -translate-y-1/2 bg-white/70 hover:bg-white rounded-full p-2 shadow cursor-pointer">
+                &#10094;
+            </button>
+            <button id="nextBtn"
+                    class="absolute top-1/2 right-2 -translate-y-1/2 bg-white/70 hover:bg-white rounded-full p-2 shadow cursor-pointer">
+                &#10095;
+            </button>
+            <?php endif; ?>
 
-            <?php endforeach; ?>
+        </div>
 
-        </header>
+        <main class="w-full flex flex-col items-start justify-start pt-8 gap-6 min-h-screen md:px-8">
 
-        <main class="w-full flex flex-col items-center justify-start pt-8 gap-6 border-x-1 min-h-screen">
+            <h1 class="text-4xl font-bold"><?php echo $productData->getNombre(); ?></h1>
 
-            <span class="w-full flex items-center justify-evenly">
+            <p class="text-lg text-gray-600"><?php echo $productData->getFabricante(); ?></p>
 
-                <h1 class="text-3xl font-bold"><?php echo $productData->getNombre(); ?></h1>
+            <p class="text-2xl font-bold text-blue-400"><?php echo $productData->getPrecio(); ?>€</p>
 
-                <p class="text-xl"><?php echo $productData->getPrecio(); ?>€</p>
+            <section class="w-full flex flex-col items-start justify-start gap-2">
 
-            </span>
+                <p class="text-xl font-bold">Descripción</p>
+                <p class="text-xl border-1 border-blue-900 px-2 py-4 rounded-xl w-full shadow-lg"><?php echo $productData->getDescripcion(); ?></p>
 
+            </section>
 
+            <p class="text-lg"><b>Color:</b> <?php echo $productData->getColor(); ?></p>
 
-            <p class="text-xl"><?php echo $productData->getDescripcion(); ?></p>
+            <button class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl">Añadir al carrito</button>
+
 
         </main>
 
