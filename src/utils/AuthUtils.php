@@ -1,6 +1,9 @@
 <?php
 
     declare(strict_types=1);
+
+    namespace Cdcrane\Dwes\Utils;
+
     class AuthUtils {
 
         public static function isLoggedInAllowAll(): bool

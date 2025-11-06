@@ -1,6 +1,8 @@
 <?php
 
-    require_once "utils/AuthUtils.php";
+    require __DIR__ . '/../vendor/autoload.php';
+
+    use Cdcrane\Dwes\Utils\AuthUtils;
 
     $loggedIn = AuthUtils::isLoggedInAllowAll();
 

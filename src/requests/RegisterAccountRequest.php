@@ -1,5 +1,7 @@
 <?php
 
+namespace Cdcrane\Dwes\Requests;
+
 class RegisterAccountRequest {
 
     private $nombre;

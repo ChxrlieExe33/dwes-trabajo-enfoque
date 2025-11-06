@@ -1,6 +1,8 @@
 <?php
 
-    require 'services/ProductService.php';
+    require __DIR__ . '/../vendor/autoload.php';
+
+    use Cdcrane\Dwes\Services\ProductService;
 
     if(!isset($_GET["id"])){
         header("location: index.php");
@@ -39,7 +41,7 @@
 
             <?php foreach ($productImages as $image): ?>
 
-                <img src="images/<?php echo $image; ?>" alt="<?php echo $image; ?>" class="w-[300px] h-[300px] rounded-xl">
+                <img src="/dwes-trabajo-enfoque/src/images/<?php echo $image; ?>" alt="<?php echo $image; ?>" class="w-[300px] h-[300px] rounded-xl">
 
             <?php endforeach; ?>
 

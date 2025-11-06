@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-require_once "DBConnFactory.php";
-require_once "model/HomepageProduct.php";
-require_once "model/ProductDetail.php";
+namespace Cdcrane\Dwes\Services;
+
+use Cdcrane\Dwes\Models\HomepageProduct;
+use Cdcrane\Dwes\Models\ProductDetail;
+use PDO;
 
 class ProductService {
 

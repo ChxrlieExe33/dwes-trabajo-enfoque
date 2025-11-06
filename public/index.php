@@ -1,7 +1,9 @@
 <?php
 
-    require_once "utils/AuthUtils.php";
-    require_once "services/ProductService.php";
+    require __DIR__ . '/../vendor/autoload.php';
+
+    use Cdcrane\Dwes\Services\ProductService;
+    use Cdcrane\Dwes\Utils\AuthUtils;
 
     session_start();
 

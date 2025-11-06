@@ -1,5 +1,7 @@
 <?php
 
+namespace Cdcrane\Dwes\Models;
+
 class ProductDetail {
 
     private $id;

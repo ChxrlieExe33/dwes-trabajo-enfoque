@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
-require_once('DBConnFactory.php');
-require_once('requests/RegisterAccountRequest.php');
+namespace Cdcrane\Dwes\Services;
+
+use Cdcrane\Dwes\Requests\RegisterAccountRequest;
+use PDO;
+use PDOException;
 
 class AuthService {
 

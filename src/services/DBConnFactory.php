@@ -2,7 +2,12 @@
 
     declare(strict_types=1);
 
-    class DBConnFactory {
+    namespace Cdcrane\Dwes\Services;
+
+use PDO;
+use PDOException;
+
+class DBConnFactory {
 
         public static function getConnection(): PDO {
 

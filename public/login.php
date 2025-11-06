@@ -1,9 +1,11 @@
 <?php
 
-    session_start();
+    require __DIR__ . '/../vendor/autoload.php';
 
-    require_once "services/AuthService.php";
-    require_once "utils/AuthUtils.php";
+    use Cdcrane\Dwes\Services\AuthService;
+    use Cdcrane\Dwes\Utils\AuthUtils;
+
+    session_start();
 
     AuthUtils::redirectToHomeIfAuthenticated();
 
@@ -15,7 +17,7 @@
 
         if ($authenticated) {
 
-            header("Location: /dwes-trabajo-enfoque/src/index.php");
+            header("Location: index.php");
 
         }
         

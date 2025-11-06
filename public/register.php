@@ -1,16 +1,19 @@
 <?php
 
-    session_start();
+    require __DIR__ . '/../vendor/autoload.php';
 
-    require_once "services/AuthService.php";
-    require_once "requests/RegisterAccountRequest.php";
-    require_once "utils/AuthUtils.php";
+    use Cdcrane\Dwes\Services\AuthService;
+    use Cdcrane\Dwes\Requests\RegisterAccountRequest;
+    use Cdcrane\Dwes\Utils\AuthUtils;
+
+    session_start();
 
     AuthUtils::redirectToHomeIfAuthenticated();
 
     $passwordsDontMatch = false;
     $emailTaken = false;
-    function handleRegister() {
+    function handleRegister(): void
+    {
 
         if ($_POST["password"] !== $_POST["confirm_password"]) {
             global $passwordsDontMatch;

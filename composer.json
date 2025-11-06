@@ -1,0 +1,16 @@
+{
+    "name": "cdcrane/dwes",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Cdcrane\\Dwes\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Charlie",
+            "email": "charliedavidcrane13@gmail.com"
+        }
+    ],
+    "require": {}
+}
