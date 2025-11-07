@@ -20,9 +20,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body class="flex items-center flex-col justify-center min-h-screen gap-6">
+<body class="flex items-center flex-col justify-center min-h-screen gap-6 px-8">
 
-    <h1 class="text-3xl text-red-800"><?php echo htmlspecialchars($message); ?></h1>
+    <h1 class="text-3xl text-red-800 text-center"><?php echo htmlspecialchars($message); ?></h1>
 
     <a class="px-6 py-2 bg-blue-500 rounded 2xl font-bold text-white" href="index.php">Vuelve al inicio</a>
 

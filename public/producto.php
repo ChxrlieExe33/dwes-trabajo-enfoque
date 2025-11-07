@@ -103,7 +103,7 @@
 
     <?php include_once 'navbar.php';?>
 
-    <div class="w-full px-[15%] flex flex-col md:flex-row items-start justify-between pt-6 md:pt-12">
+    <div class="w-full px-[5%] md:px-[15%] flex flex-col md:flex-row items-start justify-between pt-6 md:pt-12">
 
         <div class="relative w-full max-w-xl overflow-hidden rounded-lg shadow-xl">
             <!-- Carousel Images -->
@@ -129,7 +129,7 @@
 
         </div>
 
-        <main class="w-full flex flex-col items-start justify-start pt-8 gap-6 min-h-screen md:px-8">
+        <main class="w-full flex flex-col items-start justify-start pt-8 gap-2 md:gap-6 min-h-screen md:px-8">
 
             <h1 class="text-4xl font-bold"><?php echo $productData->getNombre(); ?></h1>
 
