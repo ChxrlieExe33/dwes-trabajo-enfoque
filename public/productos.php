@@ -43,7 +43,7 @@ session_start();
 
     <?php endif; ?>
 
-    <main class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 px-6 md:px-12 py-4 md:py-8">
+    <main class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 px-6 md:px-6 py-4 md:py-8">
 
         <?php if(count($products) > 0): ?>
 

@@ -14,9 +14,7 @@ class AuthService {
 
         $pdo = DBConnFactory::getConnection();
 
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-
-        $sql = 'SELECT email, password, es_admin FROM usuarios WHERE email = :email';
+        $sql = 'SELECT * FROM usuarios WHERE email = :email';
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
@@ -32,6 +30,7 @@ class AuthService {
             }
 
             $_SESSION["email"] = $email;
+            $_SESSION["user_id"] = $usuario['id_usuario'];
             $_SESSION["es_admin"] = true ? $usuario['es_admin'] == 1 : false;
             
             return true;

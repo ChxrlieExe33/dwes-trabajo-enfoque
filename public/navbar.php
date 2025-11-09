@@ -18,7 +18,7 @@
 
         <?php if ($loggedIn): ?>
 
-            <a class="font-bold tracking-wide">Mi cuenta</a>
+            <a class="font-bold tracking-wide" href="micuenta.php">Mi cuenta</a>
             <a class="font-bold tracking-wide">Mis compras</a>
             <a class="font-bold tracking-wide">Carrito</a>
             <a class="font-bold text-red-800 tracking-wide" href="logout.php">Log out</a>
@@ -46,7 +46,7 @@
 
     <?php if ($loggedIn): ?>
 
-        <a>Mi cuenta</a>
+        <a href="micuenta.php">Mi cuenta</a>
         <a>Mis compras</a>
         <a>Carrito</a>
         <a class="text-red-800 mt-auto self-center mb-8 text-3xl" href="logout.php">Log out</a>
