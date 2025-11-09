@@ -27,11 +27,11 @@
         
         <?php require "navbar.php"; ?>
 
-        <header class="w-full min-h-[400px] bg-blue-400 flex flex-col items-center justify-center gap-8">
+        <header class="w-full min-h-[400px] bg-gradient-to-r from-blue-400 to-blue-500 flex flex-col items-center justify-center gap-8 py-8 md:py-2">
 
-            <h1 class="text-4xl font-bold text-white">¡Bienvenido a Zapatoland!</h1>
+            <h1 class="text-2xl md:text-4xl font-bold text-white">¡Bienvenido a Zapatoland!</h1>
 
-            <p class="text-xl text-white max-w-[45%] text-center">
+            <p class="text-lg md:text-xl text-white max-w-[90%] lg:max-w-[45%] text-center">
                 En Zapatoland vivimos y respiramos deporte. Somos el destino definitivo para los amantes del movimiento, la velocidad y el estilo. Aquí encontrarás las últimas colecciones de zapatillas deportivas de las mejores marcas y diseños que marcan tendencia.<br><br>
 
                 Ya sea que corras, entrenes, juegues o simplemente busques comodidad para tu día a día, en Zapatoland tenemos el par perfecto para ti.
@@ -40,13 +40,13 @@
 
         </header>
 
-        <h1 class="text-2xl font-bold w-full text-center py-8">Productos recomendados</h1>
+        <h1 class="text-2xl font-bold w-full text-center py-2 md:py-8">Productos recomendados</h1>
 
         <main class="w-full flex flex-col md:flex-row items-center justify-center gap-4 py-4">
 
             <?php foreach($products as $product): ?>
 
-                <a href="producto.php?id=<?php echo $product->getId(); ?>" class="w-[90%] h-[90%] md:w-[400px] md:h-[500px] bg-blue-100 rounded-xl shadow-lg flex flex-col gap-4 items-start justify-center py-6 px-4">
+                <a href="producto.php?id=<?php echo $product->getId(); ?>" class="w-[90%] h-[90%] md:w-[400px] md:h-[500px] border-1 border-gray-200/80 rounded-xl shadow-xl flex flex-col gap-4 items-start justify-center py-6 px-4">
 
                     <img class="w-full h-[80%] mb-auto" src="/dwes-trabajo-enfoque/src/images/<?php echo $product->getNombreImagen(); ?>" alt="Imagen para producto <?php echo $product->getNombre(); ?>">
 

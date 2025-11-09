@@ -140,13 +140,13 @@
             <section class="w-full flex flex-col items-start justify-start gap-2">
 
                 <p class="text-xl font-bold">Descripción</p>
-                <p class="text-xl border-1 border-blue-900 px-2 py-4 rounded-xl w-full shadow-lg"><?php echo $productData->getDescripcion(); ?></p>
+                <p class="text-xl border-1 border-gray-300/90 px-2 py-4 rounded-xl w-full shadow-lg"><?php echo $productData->getDescripcion(); ?></p>
 
             </section>
 
             <p class="text-lg"><b>Color:</b> <?php echo $productData->getColor(); ?></p>
 
-            <button class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl">Añadir al carrito</button>
+            <button class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
 
 
         </main>
