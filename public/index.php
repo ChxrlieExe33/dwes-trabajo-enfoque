@@ -18,16 +18,31 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Zapatoland home</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     </head>
-    <body>
+    <body class="pb-12">
         
         <?php require "navbar.php"; ?>
 
-        <main class="w-full min-h-screen flex flex-col md:flex-row items-center justify-center gap-4 py-4">
+        <header class="w-full min-h-[400px] bg-blue-400 flex flex-col items-center justify-center gap-8">
+
+            <h1 class="text-4xl font-bold text-white">¡Bienvenido a Zapatoland!</h1>
+
+            <p class="text-xl text-white max-w-[45%] text-center">
+                En Zapatoland vivimos y respiramos deporte. Somos el destino definitivo para los amantes del movimiento, la velocidad y el estilo. Aquí encontrarás las últimas colecciones de zapatillas deportivas de las mejores marcas y diseños que marcan tendencia.<br><br>
+
+                Ya sea que corras, entrenes, juegues o simplemente busques comodidad para tu día a día, en Zapatoland tenemos el par perfecto para ti.
+                Rinde al máximo, luce increíble y siente la diferencia en cada paso.
+            </p>
+
+        </header>
+
+        <h1 class="text-2xl font-bold w-full text-center py-8">Productos recomendados</h1>
+
+        <main class="w-full flex flex-col md:flex-row items-center justify-center gap-4 py-4">
 
             <?php foreach($products as $product): ?>
 

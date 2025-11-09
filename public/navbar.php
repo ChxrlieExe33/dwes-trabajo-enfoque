@@ -14,7 +14,7 @@
 
     <span class="hidden md:flex items-center-safe justify evenly gap-4 h-full [&>a]:hover:border-b-2 [&>a]:hover:border-gray-400 [&>a]:hover:text-gray-400 [&>a]:cursor-pointer [&>a]:h-full [&>a]:content-center">
 
-        <a class="font-bold tracking-wide">Productos</a>
+        <a class="font-bold tracking-wide" href="productos.php">Productos</a>
 
         <?php if ($loggedIn): ?>
 
@@ -42,7 +42,7 @@
 <!-- Hidden nav menu for phones -->
 <nav id="sidenav" class="fixed top-0 right-0 w-50 h-full bg-slate-800 text-white transform translate-x-full transition-transform duration-300 z-50 flex flex-col items-end gap-4 pt-18 px-4 [&>a]:hover:text-gray-400 [&>a]:text-2xl">
 
-    <a>Productos</a>
+    <a href="productos.php">Productos</a>
 
     <?php if ($loggedIn): ?>
 
