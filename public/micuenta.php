@@ -2,13 +2,17 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use Cdcrane\Dwes\Models\UserProfile;
 use Cdcrane\Dwes\Services\UserService;
 
 session_start();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    
+    $updateData = new UserProfile($_SESSION['user_id'], $_POST['nombre'], $_POST['apellidos'], $_SESSION['email'], $_POST['fecha_nac'], 
+    $_POST['direccion_entrega'], $_POST['ciudad_entrega'], $_POST['provincia_entrega'], $_POST['direccion_facturacion'], $_POST['ciudad_facturacion'], $_POST['provincia_facturacion']);
+
+    UserService::updateUserData($updateData);
 
 }
 

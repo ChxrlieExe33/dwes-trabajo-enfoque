@@ -28,4 +28,26 @@ class UserService {
 
     }
 
+    public static function updateUserData(UserProfile $profile) : void {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $sql = 'UPDATE usuarios SET nombre = :nombre, apellidos = :apellidos, fecha_nac = :fecha_nac, direccion_entrega = :d_ent, ciudad_entrega = :c_ent, provincia_entrega = :p_ent, direccion_facturacion = :d_fac, ciudad_facturacion = :c_fac, provincia_facturacion = :p_fac WHERE id_usuario = :id';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':nombre' => $profile->getNombre(),
+            ':apellidos' => $profile->getApellidos(),
+            ':fecha_nac' => $profile->getFechaNacimiento(),
+            ':d_ent' => $profile->getDireccionEntrega(),
+            ':c_ent' => $profile->getCiudadEntrega(),
+            ':p_ent' => $profile->getProvinciaEntrega(),
+            ':d_fac' => $profile->getDireccionFacturacion(),
+            ':c_fac' => $profile->getCiudadFacturacion(),
+            ':p_fac' => $profile->getProvinciaFacturacion(),
+            ":id" => $profile->getId()
+        ]);
+
+    }
+
 }
