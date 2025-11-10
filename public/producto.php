@@ -3,8 +3,16 @@
     require __DIR__ . '/../vendor/autoload.php';
 
     use Cdcrane\Dwes\Services\ProductService;
+    use Cdcrane\Dwes\Services\CarritoService;
 
     session_start();
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+        // Devuelve null en caso de que funcione correctamente.
+        $error = CarritoService::addToCart($_POST["id"], $_POST["size"], 1);
+
+    }
 
     if(!isset($_GET["id"])){
         header("location: index.php");
@@ -147,7 +155,15 @@
 
             <p class="text-lg"><b>Color:</b> <?php echo $productData->getColor(); ?></p>
 
-            <section class="flex items-center justify-center gap-2">
+            <?php if(isset($error)): ?>
+
+                <p class="text-xl text-red-800"><?php echo $error; ?></p>
+
+            <?php endif; ?>
+
+            <form class="flex items-center justify-center gap-2" method="post">
+
+                <input type="text" name="id" value="<?php echo $productData->getId(); ?>" class="hidden">
 
                 <?php if(!empty($stock)): ?>
                 
@@ -159,7 +175,7 @@
                         <?php endforeach; ?>
                     </select>
 
-                    <button class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
+                    <button type="submit" class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
 
                 <?php else: ?>
 
@@ -167,7 +183,7 @@
 
                 <?php endif; ?>    
                 
-            </section>
+            </form>
 
         </main>
 
