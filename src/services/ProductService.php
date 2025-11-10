@@ -6,6 +6,7 @@ namespace Cdcrane\Dwes\Services;
 
 use Cdcrane\Dwes\Models\HomepageProduct;
 use Cdcrane\Dwes\Models\ProductDetail;
+use Cdcrane\Dwes\models\ProductSizeAvailability;
 use PDO;
 
 class ProductService {
@@ -129,6 +130,29 @@ class ProductService {
 
         return array_map(function (array $row) {
            return $row['fichero'];
+        }, $data);
+
+    }
+
+    public static function getStockCountOfProduct(int $id) : array {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $sql = 'SELECT talla, cantidad FROM disponibilidad_productos WHERE id_producto = :id';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':id' => $id
+        ]);
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($data)) {
+            return [];
+        }
+
+        return array_map(function (array $row) {
+            return new ProductSizeAvailability($row['talla'], $row['cantidad']);
         }, $data);
 
     }

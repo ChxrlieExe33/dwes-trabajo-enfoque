@@ -114,3 +114,11 @@ INSERT INTO multimedia_productos (`id_multimedia`, `id_producto`, `fichero`) VAL
        (2, 2, 'dunks.webp'),
        (3, 3, 'airmax95.png'),
        (4, 1, 'jordans2.webp');
+
+INSERT INTO `disponibilidad_productos` (`id_disponibilidad`, `id_producto`, `talla`, `cantidad`) VALUES
+(1, 1, 45, 5),
+(2, 1, 42, 3),
+(3, 1, 41, 1),
+(4, 2, 46, 2),
+(5, 2, 40, 3),
+(6, 3, 43, 4);

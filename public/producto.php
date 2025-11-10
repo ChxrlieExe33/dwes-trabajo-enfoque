@@ -20,6 +20,7 @@
     }
 
     $productImages = ProductService::getProductImages($id);
+    $stock = ProductService::getStockCountOfProduct($id);
 
 ?>
 
@@ -146,8 +147,27 @@
 
             <p class="text-lg"><b>Color:</b> <?php echo $productData->getColor(); ?></p>
 
-            <button class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
+            <section class="flex items-center justify-center gap-2">
 
+                <?php if(!empty($stock)): ?>
+                
+                    <p class="text-lg font-bold">Talla: </p>
+
+                    <select name="size" class="px-6 py-2 border-1 border-gray-300/80 rounded-2xl shadow-lg">
+                        <?php foreach($stock as $size): ?>
+                            <option value="<?php echo $size->getSize(); ?>"><?php echo $size->getSize(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <button class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
+
+                <?php else: ?>
+
+                    <p class="text-2xl text-red-800">Esto ya no está disponible</p>
+
+                <?php endif; ?>    
+                
+            </section>
 
         </main>
 
