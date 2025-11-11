@@ -2,10 +2,55 @@
 
 namespace Cdcrane\Dwes\Services;
 
+use Cdcrane\Dwes\models\CartEntryView;
 use PDO;
 use PDOException;
 
 class CarritoService {
+
+    public static function getCartContents($cartId) : array {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $sql = 'SELECT pc.cantidad AS cant, pc.tamano AS tamano, p.nombre AS nombre, p.precio AS precio FROM productos_carritos pc LEFT JOIN productos p ON p.id_producto = pc.id_producto WHERE pc.id_carrito = :cartId';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':cartId' => $cartId
+        ]);
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if(empty($data)) {
+            return [];
+        }
+
+        return array_map(function ($row) {
+            return new CartEntryView($row['cant'], $row['tamano'], $row['nombre'], $row['precio'] * $row['cant']);
+        }, $data);
+
+    }
+
+    public static function getCartTotal($cartId): ?float {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $sql = 'SELECT importe FROM carritos WHERE id_carrito = :id';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':id' => $cartId
+        ]);
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($data)) {
+            return null;
+        }
+
+        return floatval($data['importe']);
+
+    }
 
     public static function addToCart($productId, $size, $quantity) : ?string {
 

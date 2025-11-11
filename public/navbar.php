@@ -8,11 +8,13 @@
 
 ?>
 
-<nav class="w-full h-16 flex items-center justify-between px-8 bg-slate-800 text-white">
+<div class="w-full h-16 bg-gradient-to-b from-blue-300 via-teal-300 to-blue-500 shadow-lg">
 
-    <a class="text-2xl font-bold cursor-pointer hover:text-gray-400" href="index.php">Zapatoland</a>
+<nav class="w-full h-full flex items-center justify-between px-8 bg-white/10 backdrop-blur-md border-b-2 border-white/20 text-white">
 
-    <span class="hidden md:flex items-center-safe justify evenly gap-4 h-full [&>a]:hover:border-b-2 [&>a]:hover:border-gray-400 [&>a]:hover:text-gray-400 [&>a]:cursor-pointer [&>a]:h-full [&>a]:content-center">
+    <a class="text-2xl font-bold cursor-pointer hover:text-gray-600" href="index.php">Zapatoland</a>
+
+    <span class="hidden md:flex items-center-safe justify evenly gap-4 h-full [&>a]:hover:border-b-2 [&>a]:hover:border-gray-600 [&>a]:hover:text-gray-600 [&>a]:cursor-pointer [&>a]:h-full [&>a]:content-center">
 
         <a class="font-bold tracking-wide" href="productos.php">Productos</a>
 
@@ -20,8 +22,8 @@
 
             <a class="font-bold tracking-wide" href="micuenta.php">Mi cuenta</a>
             <a class="font-bold tracking-wide">Mis compras</a>
-            <a class="font-bold tracking-wide">Carrito</a>
-            <a class="font-bold text-red-800 tracking-wide" href="logout.php">Log out</a>
+            <a class="font-bold tracking-wide" href="micarrito.php">Carrito</a>
+            <a class="font-bold text-red-600 tracking-wide" href="logout.php">Log out</a>
 
         <?php endif; ?>
 
@@ -37,6 +39,9 @@
 
 </nav>
 
+</div>
+
+
 <div id="overlay" class="fixed inset-0 bg-black/50 bg-opacity-40 opacity-0 invisible transition-opacity duration-300 z-40"></div>
 
 <!-- Hidden nav menu for phones -->
@@ -48,8 +53,8 @@
 
         <a href="micuenta.php">Mi cuenta</a>
         <a>Mis compras</a>
-        <a>Carrito</a>
-        <a class="text-red-800 mt-auto self-center mb-8 text-3xl" href="logout.php">Log out</a>
+        <a href="micarrito.php">Carrito</a>
+        <a class="text-red-600 mt-auto self-center mb-8 text-3xl" href="logout.php">Log out</a>
 
     <?php endif; ?>
 

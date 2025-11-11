@@ -33,7 +33,7 @@ session_start();
 
         <input type="text" name="search" placeholder="Buscar producto..." class="px-6 py-2 rounded-2xl border-1 border-gray-300/90 shadow-xl min-w-[85%] md:min-w-[40%]">
 
-        <button type="submit" class="bg-slate-800 text-white font-bold px-6 py-2 rounded-2xl shadow-xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Buscar</button>
+        <button type="submit" class="bg-blue-400 text-white font-bold px-6 py-2 rounded-2xl shadow-xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Buscar</button>
 
     </form>
 

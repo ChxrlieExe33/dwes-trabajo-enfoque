@@ -161,7 +161,7 @@
 
             <?php endif; ?>
 
-            <form class="flex items-center justify-center gap-2" method="post">
+            <form class="flex items-center justify-center gap-4" method="post">
 
                 <input type="text" name="id" value="<?php echo $productData->getId(); ?>" class="hidden">
 
@@ -176,9 +176,9 @@
                     </select>
 
                     <?php if(isset($_SESSION['cartId'])): ?>
-                        <button type="submit" class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
+                        <button type="submit" class="shadow-lg px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
                     <?php else: ?>
-                        <a href="login.php" class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</a>
+                        <a href="login.php" class="shadow-lg px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</a>
                     <?php endif; ?>
                     
                 <?php else: ?>
