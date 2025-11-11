@@ -175,8 +175,12 @@
                         <?php endforeach; ?>
                     </select>
 
-                    <button type="submit" class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
-
+                    <?php if(isset($_SESSION['cartId'])): ?>
+                        <button type="submit" class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
+                    <?php else: ?>
+                        <a href="login.php" class="px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</a>
+                    <?php endif; ?>
+                    
                 <?php else: ?>
 
                     <p class="text-2xl text-red-800">Esto ya no está disponible</p>
