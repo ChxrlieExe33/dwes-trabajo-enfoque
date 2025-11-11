@@ -29,7 +29,7 @@
 
         <?php if(!$loggedIn): ?>
 
-            <a class="text-blue-300 font-bold tracking-wide" href="login.php">Log in</a>
+            <a class="text-white font-bold tracking-wide" href="login.php">Log in</a>
 
         <?php endif; ?>
 

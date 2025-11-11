@@ -27,7 +27,7 @@
         
         <?php require "navbar.php"; ?>
 
-        <header class="w-full min-h-[400px] bg-gradient-to-r from-blue-400 to-blue-500 flex flex-col items-center justify-center gap-8 py-8 md:py-2">
+        <header class="w-full min-h-[400px] bg-gradient-to-b from-blue-600 via-blue-500 to-blue-600 flex flex-col items-center justify-center gap-8 py-8 md:py-2 shadow-xl">
 
             <h1 class="text-2xl md:text-4xl font-bold text-white">¡Bienvenido a Zapatoland!</h1>
 
