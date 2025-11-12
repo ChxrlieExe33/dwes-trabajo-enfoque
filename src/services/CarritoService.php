@@ -12,7 +12,7 @@ class CarritoService {
 
         $pdo = DBConnFactory::getConnection();
 
-        $sql = 'SELECT pc.cantidad AS cant, pc.tamano AS tamano, p.nombre AS nombre, p.precio AS precio FROM productos_carritos pc LEFT JOIN productos p ON p.id_producto = pc.id_producto WHERE pc.id_carrito = :cartId';
+        $sql = 'SELECT pc.cantidad AS cant, pc.tamano AS tamano, p.nombre AS nombre, p.precio AS precio, p.id_producto AS id FROM productos_carritos pc LEFT JOIN productos p ON p.id_producto = pc.id_producto WHERE pc.id_carrito = :cartId';
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
@@ -26,7 +26,7 @@ class CarritoService {
         }
 
         return array_map(function ($row) {
-            return new CartEntryView($row['cant'], $row['tamano'], $row['nombre'], $row['precio'] * $row['cant']);
+            return new CartEntryView($row['cant'], $row['tamano'], $row['nombre'], $row['precio'] * $row['cant'], $row['id']);
         }, $data);
 
     }
@@ -149,6 +149,63 @@ class CarritoService {
             $pdo->rollBack();
             return 'Algo ha ido mal';
         }
+
+
+    }
+
+    public static function removeFromCart($prodId, $size) {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $pdo->beginTransaction();
+
+        $cartId = $_SESSION['cartId'];
+
+        $checkItemInCartSql = 'SELECT p.precio AS price, pc.cantidad AS cant FROM productos_carritos pc LEFT JOIN productos p ON p.id_producto = pc.id_producto WHERE pc.id_carrito = :cartId AND pc.id_producto = :idProd AND pc.tamano = :size';
+
+        $checkCartStmt = $pdo->prepare($checkItemInCartSql);
+        $checkCartStmt->execute([
+            ':cartId' => $cartId,
+            ':idProd' => $prodId,
+            ':size' => $size
+        ]);
+
+        $data = $checkCartStmt->fetch(PDO::FETCH_ASSOC);
+
+        if(empty($data)) {
+            die("Product $prodId in size $size is not in your cart already.");
+        }
+
+        $amountToReduceCartTotal = $data['price'] * $data['cant'];
+
+        try {
+
+            $removeSql = 'DELETE FROM productos_carritos WHERE id_carrito = :cartId AND id_producto = :idProd AND tamano = :size';
+
+            $removeStmt = $pdo->prepare($removeSql);
+            $removeStmt->execute([
+                ':cartId' => $cartId,
+                ':idProd' => $prodId,
+                ':size' => $size
+            ]);
+
+            $reduceCartTotalSql = 'UPDATE carritos SET importe = importe - :cant WHERE id_carrito = :cartId';
+
+            $reduceStmt = $pdo->prepare($reduceCartTotalSql);
+            $reduceStmt->execute([
+                ':cant' => $amountToReduceCartTotal,
+                ':cartId' => $cartId
+            ]);
+
+            $pdo->commit();
+
+        } catch (PDOException $e) {
+            $pdo->rollBack();
+            die($e);
+        }
+
+        
+
 
 
     }
