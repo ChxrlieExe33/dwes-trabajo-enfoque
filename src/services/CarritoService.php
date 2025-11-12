@@ -204,10 +204,6 @@ class CarritoService {
             die($e);
         }
 
-        
-
-
-
     }
 
 }

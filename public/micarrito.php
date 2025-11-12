@@ -62,6 +62,10 @@ $cartPrice = CarritoService::getCartTotal($_SESSION['cartId']);
                 <p class="text-lg">+ 21% IVA <b>€<?php echo $cartPrice / 100 * 21; ?></b></p>
                 <p class="text-3xl">Total <b>€<?php echo $cartPrice; ?></b></p>
 
+                <?php if($cartPrice > 0): ?>
+                    <a href="realizarcompra.php" class="mt-8 px-6 py-2 bg-blue-500 transform transition-transform duration-300 hover:scale-110 cursor-pointer rounded-2xl font-bold text-white">Realizar compra</a>
+                <?php endif; ?>
+                
             </div>
 
         </section>
