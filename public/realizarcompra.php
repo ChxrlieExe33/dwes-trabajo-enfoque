@@ -44,11 +44,11 @@ $userData = UserService::getUserData($_SESSION['user_id']);
 
     <?php include_once 'navbar.php'; ?>
 
-        <form class="flex flex-col items-center justify-items-start px-[25%] pt-8 pb-12 gap-8" method="post">
+        <form class="flex flex-col items-center justify-items-start px-[4%] md:px-[25%] pt-8 pb-12 gap-8" method="post">
 
             <h1 class="text-2xl font-bold">Realizar compra</h1>
 
-            <section class="w-full flex items-center justify-evenly">
+            <section class="w-full flex flex-col md:flex-row items-center justify-evenly gap-2">
 
                 <p class="text-lg">Subtotal <b>€<?php echo $cartPrice - $cartPrice / 100 * 21; ?></b></p>
                 <p class="text-lg">+ 21% IVA <b>€<?php echo $cartPrice / 100 * 21; ?></b></p>
