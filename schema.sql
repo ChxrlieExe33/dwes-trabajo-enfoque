@@ -81,6 +81,7 @@ CREATE TABLE compras (
     direccion_facturacion VARCHAR(150) NOT NULL,
     ciudad_facturacion VARCHAR(50) NOT NULL,
     provincia_facturacion VARCHAR(25) NOT NULL,
+    importe DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     CONSTRAINT FK_compras_usuarios FOREIGN KEY (id_usuario)
         REFERENCES usuarios(id_usuario)
         ON DELETE CASCADE

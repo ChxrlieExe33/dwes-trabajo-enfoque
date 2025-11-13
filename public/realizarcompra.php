@@ -2,10 +2,22 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use Cdcrane\Dwes\requests\CompleteSaleRequest;
 use Cdcrane\Dwes\Services\CarritoService;
+use Cdcrane\Dwes\services\SaleService;
 use Cdcrane\Dwes\Services\UserService;
 
 session_start();
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $saleInfo = new CompleteSaleRequest($_SESSION['user_id'], date('Y-m-d'), 
+    $_POST['d_ent'], $_POST['c_ent'], $_POST['p_ent'],
+    $_POST['d_fac'], $_POST['c_fac'], $_POST['p_fac']);
+
+    SaleService::completeSale($saleInfo, $_SESSION['cartId']);
+
+}
 
 $cartPrice = CarritoService::getCartTotal($_SESSION['cartId']);
 
