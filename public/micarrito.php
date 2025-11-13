@@ -3,8 +3,11 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Cdcrane\Dwes\Services\CarritoService;
+use Cdcrane\Dwes\Utils\AuthUtils;
 
 session_start();
+
+AuthUtils::checkLoginRedirectToLogin();
 
 $cartEntries = CarritoService::getCartContents($_SESSION['cartId']);
 $cartPrice = CarritoService::getCartTotal($_SESSION['cartId']);

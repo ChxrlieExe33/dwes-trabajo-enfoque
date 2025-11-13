@@ -137,6 +137,8 @@ class SaleService {
 
             $pdo->commit();
 
+            return true;
+
         } catch (PDOException $e) {
 
             $pdo->rollBack();

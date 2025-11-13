@@ -4,8 +4,11 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Cdcrane\Dwes\Models\UserProfile;
 use Cdcrane\Dwes\Services\UserService;
+use Cdcrane\Dwes\Utils\AuthUtils;
 
 session_start();
+
+AuthUtils::checkLoginRedirectToLogin();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 

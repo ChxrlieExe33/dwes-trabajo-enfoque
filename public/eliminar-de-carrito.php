@@ -3,6 +3,9 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Cdcrane\Dwes\Services\CarritoService;
+use Cdcrane\Dwes\Utils\AuthUtils;
+
+AuthUtils::checkLoginRedirectToLogin();
 
 session_start();
 
