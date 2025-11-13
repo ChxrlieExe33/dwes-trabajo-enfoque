@@ -161,6 +161,10 @@
 
             <?php endif; ?>
 
+            <?php if($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($error)): ?>
+                <p class="text-xl text-green-600">Añadido al carrito en talla <?php echo $_POST["size"];?>.</p>
+            <?php endif; ?>
+
             <form class="flex items-center justify-center gap-4" method="post">
 
                 <input type="text" name="id" value="<?php echo $productData->getId(); ?>" class="hidden">

@@ -2,6 +2,7 @@
 
 namespace Cdcrane\Dwes\services;
 
+use Cdcrane\Dwes\models\SaleListView;
 use Cdcrane\Dwes\Services\CarritoService;
 use Cdcrane\Dwes\Services\DBConnFactory;
 use PDO;
@@ -143,6 +144,24 @@ class SaleService {
 
         }
 
+    }
+
+    public static function getSalesByCustomerId($customerId) {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $sql = 'SELECT * FROM compras WHERE id_usuario = :customer';
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            ':customer' => $customerId
+        ]);
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(function ($row) {
+            return new SaleListView($row['id_compra'], $row['fecha'], $row['importe'], $row['provincia_entrega']);
+        }, $data);
 
     }
 }
