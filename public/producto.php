@@ -165,33 +165,35 @@
                 <p class="text-xl text-green-600">Añadido al carrito en talla <?php echo $_POST["size"];?>.</p>
             <?php endif; ?>
 
-            <form class="flex items-center justify-center gap-4" method="post">
+            <?php if($_SESSION['es_admin'] != true): ?>
+                <form class="flex items-center justify-center gap-4" method="post">
 
-                <input type="text" name="id" value="<?php echo $productData->getId(); ?>" class="hidden">
+                    <input type="text" name="id" value="<?php echo $productData->getId(); ?>" class="hidden">
 
-                <?php if(!empty($stock)): ?>
-                
-                    <p class="text-lg font-bold">Talla: </p>
-
-                    <select name="size" class="px-6 py-2 border-1 border-gray-300/80 rounded-2xl shadow-lg">
-                        <?php foreach($stock as $size): ?>
-                            <option value="<?php echo $size->getSize(); ?>"><?php echo $size->getSize(); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-
-                    <?php if(isset($_SESSION['cartId'])): ?>
-                        <button type="submit" class="shadow-lg px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
-                    <?php else: ?>
-                        <a href="login.php" class="shadow-lg px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</a>
-                    <?php endif; ?>
+                    <?php if(!empty($stock)): ?>
                     
-                <?php else: ?>
+                        <p class="text-lg font-bold">Talla: </p>
 
-                    <p class="text-2xl text-red-800">Esto ya no está disponible</p>
+                        <select name="size" class="px-6 py-2 border-1 border-gray-300/80 rounded-2xl shadow-lg">
+                            <?php foreach($stock as $size): ?>
+                                <option value="<?php echo $size->getSize(); ?>"><?php echo $size->getSize(); ?></option>
+                            <?php endforeach; ?>
+                        </select>
 
-                <?php endif; ?>    
-                
-            </form>
+                        <?php if(isset($_SESSION['cartId'])): ?>
+                            <button type="submit" class="shadow-lg px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
+                        <?php else: ?>
+                            <a href="login.php" class="shadow-lg px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</a>
+                        <?php endif; ?>
+                        
+                    <?php else: ?>
+
+                        <p class="text-2xl text-red-800">Esto ya no está disponible</p>
+
+                    <?php endif; ?>    
+                    
+                </form>
+            <?php endif; ?>
 
         </main>
 
