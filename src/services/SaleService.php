@@ -166,4 +166,26 @@ class SaleService {
         }, $data);
 
     }
+
+    public static function getAllSalesPaginated($page) {
+
+        $pageMultiplier = 8;
+
+        $pdo = DBConnFactory::getConnection();
+
+        $sql = 'SELECT * FROM compras ORDER BY id_compra DESC LIMIT 8 OFFSET :offset';
+        $stmt = $pdo->prepare($sql);
+        
+        $offset = $page * $pageMultiplier;
+
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(function ($row) {
+            return new SaleListView($row['id_compra'], $row['fecha'], $row['importe'], $row['provincia_entrega']);
+        }, $data);        
+
+    }
 }

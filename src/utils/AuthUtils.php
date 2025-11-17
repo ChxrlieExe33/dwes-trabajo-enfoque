@@ -29,6 +29,14 @@
             }
         }
 
+        public static function restrictPageAdminOnly() {
+
+            if ($_SESSION['es_admin'] != true) {
+                header("Location: index.php");
+            }
+
+        }
+
     }
 
 ?>
