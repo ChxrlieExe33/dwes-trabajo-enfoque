@@ -29,7 +29,7 @@ AuthUtils::restrictPageAdminOnly();
 
         <main class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-8">
 
-            <a class="border-2 border-gray-300/80 shadow-lg p-8 rounded-lg flex flex-col items-center justify-center hover:bg-gray-200/50" href="index.php">
+            <a class="border-2 border-gray-300/80 shadow-lg p-8 rounded-lg flex flex-col items-center justify-center hover:bg-gray-200/50" href="crearproducto.php">
 
                 <h1 class="text-lg font-bold">Crear producto</h1>
 

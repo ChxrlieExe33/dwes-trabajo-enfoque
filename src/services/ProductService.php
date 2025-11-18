@@ -7,9 +7,13 @@ namespace Cdcrane\Dwes\Services;
 use Cdcrane\Dwes\Models\HomepageProduct;
 use Cdcrane\Dwes\Models\ProductDetail;
 use Cdcrane\Dwes\models\ProductSizeAvailability;
+use Cdcrane\Dwes\requests\SaveNewProductRequest;
 use PDO;
+use PDOException;
 
 class ProductService {
+
+    public static $allowedFileExtensions = ['png', 'svg', 'jpg', 'jpeg', 'webp'];
 
     public static function getNewestProductsHomePageView() : array {
 
@@ -154,6 +158,88 @@ class ProductService {
         return array_map(function (array $row) {
             return new ProductSizeAvailability($row['talla'], $row['cantidad']);
         }, $data);
+
+    }
+
+    public static function insertNewProduct(SaveNewProductRequest $request) {
+
+        $pdo = DBConnFactory::getConnection();
+        $pdo->beginTransaction();
+
+        try {
+
+            // ---------------------
+            // Save the product data
+            // ---------------------
+
+            $saveProductSql = 'INSERT INTO productos (nombre, descripcion, precio, color, nombre_fabricante) VALUES (:nombre, :descrip, :pr, :col, :fabr)';
+
+            $saveProdStmt = $pdo->prepare($saveProductSql);
+            $saveProdStmt->execute([
+                ':nombre' => $request->getName(),
+                ':descrip' => $request->getDescription(),
+                ':pr' => $request->getPrice(),
+                ':col' => $request->getColour(),
+                ':fabr' => $request->getFactoryName()
+            ]);
+
+            $prodId = $pdo->lastInsertId();
+
+            // ---------------------
+            // Save the images if they are present
+            // ---------------------
+
+            $imgs = $request->getImages();
+
+            # Check if there is files by seeing if the first name is not empty
+            # since the first one is always there just empty if there was no files
+            if ($imgs['file']['name'][0] != "") { 
+
+                $fileCount = count($imgs['file']['name']);
+
+                for ($i = 0; $i < $fileCount; $i++) {
+
+                    // Unique name for each one in the array in case names are duplicated.
+                    $name = $imgs['file']['name'][$i] . "-imagen-" . $i .  "-producto-" . $prodId;
+
+                    $extension = pathinfo($imgs['file']['name'][$i], PATHINFO_EXTENSION);
+                    $extension = strtolower($extension);
+
+                    $location = __DIR__ . "/../images/" . $name . $extension;
+
+                    // Rollback and throw error when user submits invalid file type.
+                    if(!in_array($extension, ProductService::$allowedFileExtensions)) {
+                        $pdo->rollBack();
+                        die("Invalid file extension '" . $extension . "' on file " . $imgs['file']['name'][$i]);
+                    }
+
+                    if(!move_uploaded_file($imgs['file']['tmp_name'][$i], $location)) {
+                        die("Could not move " . $imgs['file']['tmp_name'][$i] . " to " . $location);
+                    }
+
+                    $saveMediaSql = 'INSERT INTO multimedia_productos (id_producto, fichero) VALUES (:idProd, :nombreFichero)';
+                    $saveMediaStmt = $pdo->prepare($saveMediaSql);
+
+                    $saveMediaStmt->execute([
+                        ':idProd' => $prodId,
+                        ':nombreFichero' => $name
+                    ]);
+
+                }
+
+            }
+
+            $pdo->commit();
+
+            return $prodId;
+
+        } catch (PDOException $e) {
+
+            $pdo->rollBack();
+            die($e);
+
+        }
+
 
     }
 
