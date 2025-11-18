@@ -200,12 +200,12 @@ class ProductService {
                 for ($i = 0; $i < $fileCount; $i++) {
 
                     // Unique name for each one in the array in case names are duplicated.
-                    $name = $imgs['file']['name'][$i] . "-imagen-" . $i .  "-producto-" . $prodId;
+                    $name = "Imagen-" . $i .  "-producto-" . $prodId . "-" . $imgs['file']['name'][$i];
 
                     $extension = pathinfo($imgs['file']['name'][$i], PATHINFO_EXTENSION);
                     $extension = strtolower($extension);
 
-                    $location = __DIR__ . "/../images/" . $name . $extension;
+                    $location = __DIR__ . "/../images/" . $name;
 
                     // Rollback and throw error when user submits invalid file type.
                     if(!in_array($extension, ProductService::$allowedFileExtensions)) {
