@@ -51,7 +51,7 @@ session_start();
 
                 <a href="producto.php?id=<?php echo $product->getId(); ?>" class="border-1 border-gray-200/80 rounded-xl shadow-xl flex flex-col gap-4 items-start justify-center py-6 px-4">
 
-                    <img class="w-full h-[75%] mb-auto rounded-2xl" src="/dwes-trabajo-enfoque/src/images/<?php echo $product->getNombreImagen(); ?>" alt="Imagen para producto <?php echo $product->getNombre(); ?>">
+                    <img class="w-full h-[75%] mb-auto rounded-2xl" src="images/<?php echo $product->getNombreImagen(); ?>" alt="Imagen para producto <?php echo $product->getNombre(); ?>">
 
                     <h1 class="text-xl font-bold"><?php echo $product->getNombre(); ?></h1>
                     <p>€<?php echo $product->getPrecio(); ?></p>

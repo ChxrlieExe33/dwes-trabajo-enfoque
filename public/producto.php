@@ -118,7 +118,7 @@
             <!-- Carousel Images -->
             <div id="carousel" class="flex transition-transform duration-500 ease-in-out">
                 <?php foreach ($productImages as $img): ?>
-                    <img src="/dwes-trabajo-enfoque/src/images/<?php echo htmlspecialchars($img); ?>"
+                    <img src="images/<?php echo htmlspecialchars($img); ?>"
                          alt="<?php echo htmlspecialchars($img); ?>"
                          class="w-full flex-shrink-0 object-cover">
                 <?php endforeach; ?>

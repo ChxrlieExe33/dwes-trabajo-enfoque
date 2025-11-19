@@ -48,7 +48,7 @@
 
                 <a href="producto.php?id=<?php echo $product->getId(); ?>" class="w-[90%] h-[90%] md:w-[400px] md:h-[500px] border-1 border-gray-200/80 rounded-xl shadow-xl flex flex-col gap-4 items-start justify-center py-6 px-4">
 
-                    <img class="w-full h-[80%] mb-auto" src="/dwes-trabajo-enfoque/src/images/<?php echo $product->getNombreImagen(); ?>" alt="Imagen para producto <?php echo $product->getNombre(); ?>">
+                    <img class="w-full h-[80%] mb-auto" src="images/<?php echo $product->getNombreImagen(); ?>" alt="Imagen para producto <?php echo $product->getNombre(); ?>">
 
                     <h1 class="text-xl font-bold"><?php echo $product->getNombre(); ?></h1>
                     <p>€<?php echo $product->getPrecio(); ?></p>

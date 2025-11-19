@@ -206,7 +206,7 @@ class ProductService {
                     $extension = pathinfo($imgs['file']['name'][$i], PATHINFO_EXTENSION);
                     $extension = strtolower($extension);
 
-                    $location = __DIR__ . "/../images/" . $name;
+                    $location = __DIR__ . "/../../public/images/" . $name;
 
                     // Rollback and throw error when user submits invalid file type.
                     if(!in_array($extension, ProductService::$allowedFileExtensions)) {
