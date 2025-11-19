@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Cdcrane\Dwes\Utils\AuthUtils;
-use Cdcrane\Dwes\services\SaleService;
+use Cdcrane\Dwes\Services\UserService;
 
 session_start();
 
@@ -15,7 +15,7 @@ if ($page < 0) {
     header("Location: compras.php?page=0");
 }
 
-$sales = SaleService::getAllSalesPaginated($page);
+$sales = UserService::getUserListPaginated($page);
 
 ?>
 
@@ -39,10 +39,11 @@ $sales = SaleService::getAllSalesPaginated($page);
 
                 <section class="w-full p-6 border-b-2 border-gray-300/90 flex items-center justify-between">
 
-                    <p><?php echo $entry->getId(); ?></p>
-                    <p><?php echo $entry->getDate(); ?></p>
-                    <p>Entrega: <?php echo $entry->getProvEntrega(); ?></p>
-                    <b>€<?php echo $entry->getTotal(); ?></b>
+                    <p>ID: <?php echo $entry->getId(); ?></p>
+                    <p><?php echo $entry->getName() . ' ' . $entry->getSurname(); ?></p>
+                    
+                    <p><?php echo $entry->getEmail(); ?></p>
+                    <b><?php echo $entry->isAdmin() ? 'ADMIN' : 'CLIENTE'; ?></b>
 
                 </section>
 
@@ -50,24 +51,24 @@ $sales = SaleService::getAllSalesPaginated($page);
 
             <?php if(empty($sales)): ?>
 
-                <p class="text-2xl my-20">No hay compras.</p>
+                <p class="text-2xl my-20">No hay usuarios.</p>
 
             <?php endif; ?>
 
             <span class="w-[80%] md:w-[45%] flex items-center justify-evenly py-2 px-6 rounded-2xl bg-gray-200/70 border-1 border-gray-400/80 my-6 shadow-lg">
 
                 <?php if($page != 0): ?>
-                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg transform transition-transform duration-300 hover:scale-110 cursor-pointer" href="compras.php?page=<?php echo $page - 1; ?>"><</a>
+                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg transform transition-transform duration-300 hover:scale-110 cursor-pointer" href="usuarios.php?page=<?php echo $page - 1; ?>"><</a>
                 <?php else: ?>
-                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg invisible" href="compras.php?page=<?php echo $page - 1; ?>"><</a>
+                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg invisible" href="usuarios.php?page=<?php echo $page - 1; ?>"><</a>
                 <?php endif; ?>
                     
                 <p>Página <?php echo $page; ?></p>
 
                 <?php if(!empty($sales)): ?>
-                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg transform transition-transform duration-300 hover:scale-110 cursor-pointer" href="compras.php?page=<?php echo $page + 1; ?>">></a>
+                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg transform transition-transform duration-300 hover:scale-110 cursor-pointer" href="usuarios.php?page=<?php echo $page + 1; ?>">></a>
                 <?php else: ?>
-                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg invisible" href="compras.php?page=<?php echo $page + 1; ?>">></a>
+                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg invisible" href="usuarios.php?page=<?php echo $page + 1; ?>">></a>
                 <?php endif; ?>
 
             </span>

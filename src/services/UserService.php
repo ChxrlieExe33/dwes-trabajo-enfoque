@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cdcrane\Dwes\Services;
 
+use Cdcrane\Dwes\models\UserListView;
 use Cdcrane\Dwes\Models\UserProfile;
 use PDO;
 
@@ -25,6 +26,30 @@ class UserService {
         return new UserProfile($user['id_usuario'], $user['nombre'], $user['apellidos'], $user['email'], $user['fecha_nac'],
             $user['direccion_entrega'], $user['ciudad_entrega'], $user['provincia_entrega'],
             $user['direccion_facturacion'], $user['ciudad_facturacion'], $user['provincia_facturacion']);
+
+    }
+
+    public static function getUserListPaginated(int $page) : array {
+
+        $pageMultiplier = 8;
+
+        $pdo = DBConnFactory::getConnection();
+
+        $sql = 'SELECT * FROM `usuarios` ORDER BY id_usuario DESC LIMIT 8 OFFSET :offset';
+        
+        $stmt = $pdo->prepare($sql);
+        
+        $offset = $page * $pageMultiplier;
+
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(function ($row){
+            return new UserListView($row['id_usuario'], $row['nombre'], $row['apellidos'], $row['email'], $row['es_admin'] == 1);
+        }, $data);
+
 
     }
 

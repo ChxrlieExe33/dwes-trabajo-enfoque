@@ -196,7 +196,7 @@
 
             <?php else: ?>
 
-                <a href="actualizaproducto.php?id=<?php echo $_GET['id']; ?>" class="px-6 py-2 bg-blue-500 rounded-2xl text-white font-bold">Actualizar</a>
+                <a href="actualizaproducto.php?id=<?php echo $_GET['id']; ?>" class="px-6 py-2 bg-blue-500 rounded-2xl text-white font-bold transform transition-transform duration-300 hover:scale-110 cursor-pointer">Actualizar</a>
 
             <?php endif; ?>
 

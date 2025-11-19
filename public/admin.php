@@ -45,7 +45,7 @@ AuthUtils::restrictPageAdminOnly();
 
             </a>
 
-            <a class="border-2 border-gray-300/80 shadow-lg p-8 rounded-lg flex flex-col items-center justify-center hover:bg-gray-200/50" href="index.php">
+            <a class="border-2 border-gray-300/80 shadow-lg p-8 rounded-lg flex flex-col items-center justify-center hover:bg-gray-200/50" href="usuarios.php">
 
                 <h1 class="text-lg font-bold">Usuarios</h1>
 

@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <input type="file" multiple name="file[]" id="file" class="w-full border-1 border-gray-300/80 shadow-gray-300/60 shadow-md p-8 rounded-xl">
 
-            <button type="submit" class="px-6 py-2 rounded-3xl bg-blue-700 text-white font-bold">Submit</button>
+            <button type="submit" class="px-6 py-2 rounded-3xl bg-blue-700 text-white font-bold transform transition-transform duration-300 hover:scale-110 cursor-pointer">Submit</button>
 
         </form>
     
