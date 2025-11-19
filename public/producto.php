@@ -193,6 +193,11 @@
                     <?php endif; ?>    
                     
                 </form>
+
+            <?php else: ?>
+
+                <a href="actualizaproducto.php?id=<?php echo $_GET['id']; ?>" class="px-6 py-2 bg-blue-500 rounded-2xl text-white font-bold">Actualizar</a>
+
             <?php endif; ?>
 
         </main>

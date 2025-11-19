@@ -8,6 +8,7 @@ use Cdcrane\Dwes\Models\HomepageProduct;
 use Cdcrane\Dwes\Models\ProductDetail;
 use Cdcrane\Dwes\models\ProductSizeAvailability;
 use Cdcrane\Dwes\requests\SaveNewProductRequest;
+use Cdcrane\Dwes\requests\UpdateProductDataRequest;
 use PDO;
 use PDOException;
 
@@ -239,6 +240,34 @@ class ProductService {
             die($e);
 
         }
+
+
+    }
+
+    public static function updateExistingProduct(UpdateProductDataRequest $request, int $prodId) {
+
+        $pdo = DBConnFactory::getConnection();
+        
+        $sql = 'UPDATE productos SET nombre = :nombre, descripcion = :descrip, precio = :precio, color = :color, nombre_fabricante = :fab WHERE id_producto = :id';
+        
+        try {
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':nombre' => $request->getName(),
+                ':descrip' => $request->getDescription(),
+                ':precio' => $request->getPrice(),
+                ':color' => $request->getColour(),
+                ':fab' => $request->getFactoryName(),
+                ':id' => $prodId
+            ]);
+
+        } catch (PDOException $e) {
+
+            die($e);
+        }
+
+        
 
 
     }
