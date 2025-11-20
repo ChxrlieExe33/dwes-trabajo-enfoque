@@ -117,7 +117,7 @@ $userData = UserService::getUserData($_SESSION['user_id']);
 
             <button type="submit" class="font-bold text-white bg-blue-500 text-xl rounded-2xl py-4 px-10 transform transition-transform duration-300 hover:scale-110 cursor-pointer">Confirmar compra</button>
 
-        </main>
+        </form>
 
     </body>
 </html>

@@ -14,7 +14,7 @@ $myPurchases = SaleService::getSalesByCustomerId($_SESSION['user_id']);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +33,7 @@ $myPurchases = SaleService::getSalesByCustomerId($_SESSION['user_id']);
 
                 <section class="w-full p-6 border-b-2 border-gray-300/90 flex items-center justify-between">
 
-                    <p><?php echo $entry->getId(); ?></p>
+                    <p>ID: <?php echo $entry->getId(); ?></p>
                     <p><?php echo $entry->getDate(); ?></p>
                     <p>Entrega: <?php echo $entry->getProvEntrega(); ?></p>
                     <b>€<?php echo $entry->getTotal(); ?></b>

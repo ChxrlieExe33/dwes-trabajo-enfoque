@@ -9,8 +9,13 @@ use PDOException;
 
 class DBConnFactory {
 
+    /**
+     * Metodo para generar un objeto PDO, para no repetirlo en toda la aplicación.
+     * @return PDO El objeto PDO preparado, con los datos de conexión desde la seguridad de los variables de entorno de apache
+     */
         public static function getConnection(): PDO {
 
+            // Obtener las credenciales y datos de las variables de entorno (httpd-xampp.conf).
             $dbhost = getenv('DB_HOST');
             $dbname = getenv('DB_NAME');
             $dbuser = getenv('DB_USER');

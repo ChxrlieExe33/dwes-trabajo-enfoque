@@ -12,6 +12,11 @@ use PDOException;
 
 class UserService {
 
+    /**
+     * Obtener los datos del usuario indicado.
+     * @param int $userId ID del usuario.
+     * @return UserProfile Perfil del usuario.
+     */
     public static function getUserData(int $userId) : UserProfile {
 
         $pdo = DBConnFactory::getConnection();
@@ -31,6 +36,11 @@ class UserService {
 
     }
 
+    /**
+     * Obtener datos de un usuario para el panel de administración.
+     * @param int $userId El ID del usuario.
+     * @return UserPersonalDataAndRole Los datos del usuario con su rol.
+     */
     public static function getUserDataForAdmin(int $userId) : UserPersonalDataAndRole {
 
         $pdo = DBConnFactory::getConnection();
@@ -48,6 +58,11 @@ class UserService {
 
     }
 
+    /**
+     * Obtener listado de todos los usuarios con paginación.
+     * @param int $page El numero de página.
+     * @return array El listado de los datos de usuario.
+     */
     public static function getUserListPaginated(int $page) : array {
 
         $pageMultiplier = 8;
@@ -57,7 +72,8 @@ class UserService {
         $sql = 'SELECT * FROM `usuarios` ORDER BY id_usuario DESC LIMIT 8 OFFSET :offset';
         
         $stmt = $pdo->prepare($sql);
-        
+
+        // Calcular cuanto avanzar según el número de página.
         $offset = $page * $pageMultiplier;
 
         $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
@@ -72,6 +88,15 @@ class UserService {
 
     }
 
+    /**
+     * Registrar un usuario con los campos del panel de administrador.
+     * @param string $name Nombre.
+     * @param string $surname Apellidos.
+     * @param string $email Correo.
+     * @param string $password Contraseña en texto plano, será hasheado aquí.
+     * @param bool $grantAdmin Si debe ser administrador.
+     * @return void
+     */
     public static function registerUserAdminPanel(string $name, string $surname, string $email, string $password, bool $grantAdmin){
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -81,6 +106,8 @@ class UserService {
 
         try {
 
+            // Crear la cuenta, y usar bindValue en vez de hacerlo dentro del execute()
+            // Ya que booleanos pueden causar problemas dentro del execute().
             $createAccountSql = 'INSERT INTO usuarios (nombre, apellidos, email, password, es_admin) values (:nombre, :apellidos, :email, :pass, :isadmin)';
             $createAccountStmt = $pdo->prepare($createAccountSql);
             
@@ -91,10 +118,9 @@ class UserService {
             $createAccountStmt->bindValue(':pass', (string)$hash, PDO::PARAM_STR);
 
             $createAccountStmt->execute();
-
-            
             $userId = $pdo->lastInsertId();
 
+            // Crear el carrito del usuario.
             $cartSql = 'INSERT INTO carritos (id_usuario, importe) VALUES (:id_usuario, 0.00)';
 
             $cartStmt = $pdo->prepare($cartSql);
@@ -114,6 +140,11 @@ class UserService {
 
     }
 
+    /**
+     * Actualizar los datos de usuario desde su página de perfil.
+     * @param UserProfile $profile Los datos del usuario.
+     * @return void
+     */
     public static function updateUserData(UserProfile $profile) : void {
 
         $pdo = DBConnFactory::getConnection();
@@ -136,6 +167,11 @@ class UserService {
 
     }
 
+    /**
+     * Actualizar los datos de un usuario con los campos del panel de administrador.
+     * @param UserPersonalDataAndRole $data Los datos del usuario.
+     * @return void
+     */
     public static function updateUserInfoAdmin(UserPersonalDataAndRole $data) {
 
         $pdo = DBConnFactory::getConnection();
@@ -153,6 +189,11 @@ class UserService {
 
     }
 
+    /**
+     * Eliminar un usuario.
+     * @param int $userId El ID del usuario.
+     * @return void
+     */
     public static function deleteUser(int $userId) {
 
         $pdo = DBConnFactory::getConnection();

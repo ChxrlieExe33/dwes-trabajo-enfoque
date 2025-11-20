@@ -33,7 +33,7 @@ if ($product == null) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -69,14 +69,38 @@ if ($product == null) {
 
             <button type="submit" class="px-6 py-2 rounded-3xl bg-blue-700 text-white font-bold">Actualiza</button>
 
+        </form>
+
+        <form class="w-full px-[4%] md:px-[10%] lg:px-[30%] flex flex-col items-center justify-items-start py-8 gap-4" method='get' action="guardar-stock.php">
+
+            <div class="w-full h-2 bg-blue-500/50 rounded-2xl"></div>
+
+            <h1 class="text-2xl font-bold mb-4">Añadir stock de este producto</h1>
+
+            <span class="w-full flex flex-col md:flex-row items-center justify-between gap-4">
+
+                <input type="number" name="prodId" class="hidden" value="<?php echo $_GET['id']; ?>">
+
+                <input type="number" name="size"  class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Talla">
+
+                <input type="number" name="count" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Cantidad">
+
+            </span>
+
+            <button type="submit" class="px-6 py-2 rounded-3xl bg-blue-700 text-white font-bold">Añadir</button>
+
+        </form>
+
+
+        <section class="w-full px-[4%] md:px-[10%] lg:px-[30%] flex flex-col items-center justify-items-start py-8 gap-4">
+
             <h1 class="text-2xl text-red-800 mt-8">Zona de peligro</h1>
 
             <div class="w-full h-2 bg-red-800/50 rounded-2xl"></div>
 
-            <a href="eliminar-producto.php?id=<?php echo $product->getId(); ?>" class="px-6 py-2 rounded-2xl font-bold bg-red-800 text-white transform transition-transform duration-300 hover:scale-110 cursor-pointer">Eliminar</a>
+            <a href="eliminar-producto.php?id=<?php echo $product->getId(); ?>" class="px-6 py-2 rounded-2xl font-bold bg-red-800 text-white transform transition-transform duration-300 hover:scale-110 cursor-pointer">Eliminar producto</a>
 
-
-        </form>
+        </section>
 
     </body>
 </html>

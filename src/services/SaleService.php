@@ -3,6 +3,7 @@
 namespace Cdcrane\Dwes\services;
 
 use Cdcrane\Dwes\models\SaleListView;
+use Cdcrane\Dwes\requests\CompleteSaleRequest;
 use Cdcrane\Dwes\Services\CarritoService;
 use Cdcrane\Dwes\Services\DBConnFactory;
 use PDO;
@@ -10,12 +11,18 @@ use PDOException;
 
 class SaleService {
 
-
-    public static function completeSale($saleInformation, $cartId) {
+    /**
+     * Pasar nuestro carrito a pedido y confirmar la venta en caso de que está disponible.
+     * @param CompleteSaleRequest $saleInformation La información del menu de confirmación.
+     * @param int $cartId El ID del carrito.
+     * @return void
+     */
+    public static function completeSale(CompleteSaleRequest $saleInformation, int $cartId) {
 
         $pdo = DBConnFactory::getConnection();
         $pdo->beginTransaction();
 
+        // Obtener el contenido del carrito.
         $cartProducts = CarritoService::getCartContents($cartId);
         $cartTotal = CarritoService::getCartTotal($cartId);
 
@@ -23,12 +30,12 @@ class SaleService {
             header("Location: micarrito.php");
         }
 
-        // Array of cart entries where stock wasn't suficient to complete.
+        // Array de entradas del carrito donde no había suficiente disponibilidad para realizar la compra.
         $badProducts = [];
 
         try {
 
-            // Check stock and handle deletion.
+            // Verificar la disponibilidad y manejar su reducción.
             foreach($cartProducts as $prod) {
 
                 $checkEachProductSql = 'SELECT cantidad FROM disponibilidad_productos WHERE id_producto = :id AND talla = :talla';
@@ -41,12 +48,13 @@ class SaleService {
 
                 $data = $checkStkStmt->fetch(PDO::FETCH_ASSOC);
 
+                // Añadir al array en caso de que no hay suficiente y continuar.
                 if ($data['cantidad'] < $prod->getQuantity()){
                     $badProducts[] = $prod;
                     continue;
                 }
 
-                // Reduce stock count if any remain, delete stock entry if none remain.
+                // Reducir cantidad de stock o eliminar la entrada si no queda más después.
                 if ($data['cantidad'] - $prod->getQuantity() > 0) {
 
                     $updateStkSql = 'UPDATE disponibilidad_productos SET cantidad = cantidad - :cant WHERE id_producto = :id AND talla = :talla';
@@ -69,11 +77,12 @@ class SaleService {
 
             }
 
-            // Handle if any products weren't available anymore.
+            // Manejar el caso de que no había suficiente disponibilidad.
             if (!empty($badProducts)) {
 
                 $msg = "Los siguientes productos nó estaban disponibles";
 
+                // Montar el mensaje de error de todos los productos no disponibles.
                 foreach($badProducts as $bad) {
                     $msg = $msg . ', Producto ' . $bad->getProdName() . ' en talla ' . $bad->getSize();
                 }
@@ -85,7 +94,7 @@ class SaleService {
             }
 
 
-            // Create the sale
+            // Crear la entrada de la venta.
             $createSaleSql = 'INSERT INTO compras (id_usuario, fecha, direccion_entrega, ciudad_entrega, provincia_entrega, direccion_facturacion, ciudad_facturacion, provincia_facturacion, importe) VALUES (:idUser, :fecha, :dEnt, :cEnt, :pEnt, :dFac, :cFac, :pFac, :importe)';        
 
             $createSaleStmt = $pdo->prepare($createSaleSql);
@@ -103,7 +112,7 @@ class SaleService {
 
             $saleId = $pdo->lastInsertId();
 
-            // Prepare a reusable prepared statement for adding products to the sale.
+            // Crear un prepared statement reutilizable para añadir cada entrada a la venta.
             $addProductsToSaleSql = 'INSERT INTO productos_compras (id_producto, id_compra, tamano, cantidad) VALUES (:prodId, :saleId, :talla, :cant)';
             $addProductsToSaleStmt = $pdo->prepare($addProductsToSaleSql);
 
@@ -118,7 +127,7 @@ class SaleService {
 
             }
 
-            // Empty the cart
+            // Vaciar el carrito.
             $emptyCartSql = 'DELETE FROM productos_carritos WHERE id_carrito = :id';
             $emptyCartStmt = $pdo->prepare($emptyCartSql);
 
@@ -126,7 +135,7 @@ class SaleService {
                 ':id' => $cartId
             ]);
 
-            // Set the cart total to 0 again
+            // Establecer el importe del carrito como 0.
             $dropCartTotalSql = 'UPDATE carritos SET importe = 0 WHERE id_carrito = :cart';
 
             $dropCartTotalStmt = $pdo->prepare($dropCartTotalSql);
@@ -145,7 +154,12 @@ class SaleService {
 
     }
 
-    public static function getSalesByCustomerId($customerId) {
+    /**
+     * Obtener ventas de un cliente por su ID.
+     * @param int $customerId ID del cliente
+     * @return SaleListView[] Los datos de cada venta.
+     */
+    public static function getSalesByCustomerId(int $customerId) {
 
         $pdo = DBConnFactory::getConnection();
 
@@ -164,7 +178,12 @@ class SaleService {
 
     }
 
-    public static function getAllSalesPaginated($page) {
+    /**
+     * Obtener los datos de todas las ventas utilizando paginación.
+     * @param int $page El numero de página.
+     * @return SaleListView[] Los datos de las ventas.
+     */
+    public static function getAllSalesPaginated(int $page) {
 
         $pageMultiplier = 8;
 

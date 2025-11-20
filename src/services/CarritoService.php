@@ -8,7 +8,12 @@ use PDOException;
 
 class CarritoService {
 
-    public static function getCartContents($cartId) : array {
+    /**
+     * Metodo que obtiene el contenido del carrito con el ID proporcionado.
+     * @param int $cartId El ID del carrito.
+     * @return array El contenido del carrito en objetos CartEntryView.
+     */
+    public static function getCartContents(int $cartId) : array {
 
         $pdo = DBConnFactory::getConnection();
 
@@ -25,13 +30,19 @@ class CarritoService {
             return [];
         }
 
+        // Mapear el array asociativo devuelto a uno de objetos.
         return array_map(function ($row) {
             return new CartEntryView($row['cant'], $row['tamano'], $row['nombre'], $row['precio'] * $row['cant'], $row['id']);
         }, $data);
 
     }
 
-    public static function getCartTotal($cartId): ?float {
+    /**
+     * Metodo que obtiene el importe total del carrito con el ID proporcionado.
+     * @param int $cartId El ID del carrito.
+     * @return float|null Importe total en el caso que existe el carrito.
+     */
+    public static function getCartTotal(int $cartId): ?float {
 
         $pdo = DBConnFactory::getConnection();
 
@@ -52,7 +63,14 @@ class CarritoService {
 
     }
 
-    public static function addToCart($productId, $size, $quantity) : ?string {
+    /**
+     * Metodo para añadir una cantidad de cierto producto en cierto tamaño al carrito del usuario actual.
+     * @param int $productId El ID del producto.
+     * @param int $size La talla del producto.
+     * @param int $quantity La cantidad del producto.
+     * @return string|null Un mensaje de error en caso de que algo valla mal.
+     */
+    public static function addToCart(int $productId, int $size, int $quantity) : ?string {
 
         $pdo = DBConnFactory::getConnection();
 
@@ -131,6 +149,10 @@ class CarritoService {
 
             }
 
+            // -----------------------------------------------------
+            // Calcular el importe total del carrito y actualizarlo.
+            // -----------------------------------------------------
+
             $precio = $availability['precio'] * $quantity;
 
             $updateCartPriceSql = 'UPDATE carritos SET importe = importe + :cantidad WHERE id_carrito = :id';
@@ -145,7 +167,7 @@ class CarritoService {
             return null;
 
 
-        } catch (PDOException $e) {
+        } catch (PDOException $e) { # En caso de fallo a nivel SQL.
             $pdo->rollBack();
             return 'Algo ha ido mal';
         }
@@ -153,7 +175,13 @@ class CarritoService {
 
     }
 
-    public static function removeFromCart($prodId, $size) {
+    /**
+     * Metodo que elimina la entrada de un determinado producto en cierto tamaño del carrito actual.
+     * @param int $prodId El ID del producto.
+     * @param int $size El tamaño.
+     * @return void
+     */
+    public static function removeFromCart(int $prodId, int $size) : void {
 
         $pdo = DBConnFactory::getConnection();
 
