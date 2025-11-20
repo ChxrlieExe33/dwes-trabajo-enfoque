@@ -69,6 +69,13 @@ if ($product == null) {
 
             <button type="submit" class="px-6 py-2 rounded-3xl bg-blue-700 text-white font-bold">Actualiza</button>
 
+            <h1 class="text-2xl text-red-800 mt-8">Zona de peligro</h1>
+
+            <div class="w-full h-2 bg-red-800/50 rounded-2xl"></div>
+
+            <a href="eliminar-producto.php?id=<?php echo $product->getId(); ?>" class="px-6 py-2 rounded-2xl font-bold bg-red-800 text-white transform transition-transform duration-300 hover:scale-110 cursor-pointer">Eliminar</a>
+
+
         </form>
 
     </body>

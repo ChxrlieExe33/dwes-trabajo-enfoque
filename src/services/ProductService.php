@@ -267,8 +267,37 @@ class ProductService {
             die($e);
         }
 
-        
+    }
 
+    public static function deleteProduct(int $id) {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $getMediaSql = 'SELECT fichero FROM multimedia_productos WHERE id_producto = :id';
+        $getMediaStmt = $pdo->prepare($getMediaSql);
+        $getMediaStmt->execute([
+            ':id' => $id
+        ]);
+
+        $imgs = $getMediaStmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Obtener las rutas a todos los imagenes del producto.
+        $imgPaths = array_map(function ($row) {
+            return __DIR__ . "/../../public/images/" . $row['fichero'];
+        }, $imgs);
+
+        // Eliminar el producto
+        $sql = 'DELETE FROM productos WHERE id_producto = :id';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':id' => $id
+        ]);
+
+        // Eliminar cada imagen
+        foreach ($imgPaths as $path) {
+            unlink($path);
+        }
 
     }
 

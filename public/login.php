@@ -39,9 +39,9 @@
     </head>
     <body>
         
-        <main class="w-full min-h-screen flex flex-col items-center justify-center bg-blue-300/50">
+        <main class="w-full min-h-screen flex flex-col items-center justify-center bg-blue-200/50">
 
-            <form class="bg-white w-[90%] lg:w-[40%] flex flex-col items-center justify-center py-8 md:px-4 lg:px-8 gap-6 rounded-3xl" method="post">
+            <form class="bg-white border-1 border-gray-400/80 shadow-gray-400/50 shadow-xl w-[90%] lg:w-[40%] flex flex-col items-center justify-center py-8 md:px-4 lg:px-8 gap-6 rounded-3xl" method="post">
 
                 <h1 class="text-2xl text-blue-800 font-bold">Zapatoland</h1>
                 <p class="text-xl">Inicia sesión</p>
@@ -57,16 +57,17 @@
                 <?php endif; ?>
 
                 <span class="w-full flex flex-col items-center justify-center gap-2">
-                    <input type="text" name="username" placeholder="Email..." class="px-6 py-2 rounded-xl outline-none bg-slate-200 w-[90%] lg:w-[80%]">
-                    <input type="password" name="password" placeholder="Contraseña..." class="px-6 py-2 rounded-xl outline-none bg-slate-200 w-[90%] lg:w-[80%]">
+                    <input type="text" name="username" placeholder="Email..." class="px-6 py-2 rounded-xl border-1 border-gray-300/70 shadow-gray-300/50 shadow-md outline-none bg-slate-200 w-[90%] lg:w-[80%]">
+                    <input type="password" name="password" placeholder="Contraseña..." class="px-6 py-2 rounded-xl border-gray-300/70 shadow-gray-300/50 shadow-md outline-none bg-slate-200 w-[90%] lg:w-[80%]">
                 </span>
 
-                <button type="submit" class="px-8 py-2 bg-blue-800 rounded-3xl text-white font-bold cursor-pointer">Submit</button>
+                <button type="submit" class="px-8 py-2 bg-blue-800 rounded-3xl text-white font-bold shadow-xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Submit</button>
 
-                <a href="register.php" class="text-lg lg:text-xl text-blue-400 font-bold underline hover:text-gray-400">Registrate</a>
+                <span class="w-full flex flex-col items-center justify-center">
 
-                <a href="index.php" class="text-black text-lg lg:text-xl font-bold underline hover:text-gray-400">Navegar sin iniciar sesión.</a>
-
+                    <a href="register.php" class="text-lg lg:text-xl text-blue-400 font-bold hover:text-gray-400">Registrate</a>
+                    <a href="index.php" class="text-black text-lg lg:text-xl font-bold hover:text-gray-400">Navegar sin iniciar sesión.</a>
+                </span>
 
             </form>
 
