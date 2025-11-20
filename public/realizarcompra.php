@@ -18,11 +18,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_POST['d_ent'], $_POST['c_ent'], $_POST['p_ent'],
     $_POST['d_fac'], $_POST['c_fac'], $_POST['p_fac']);
 
-    $success = SaleService::completeSale($saleInfo, $_SESSION['cartId']);
+    SaleService::completeSale($saleInfo, $_SESSION['cartId']);
 
-    if($success) {
-        header("Location: miscompras.php");
-    }
+    header("Location: miscompras.php");
 }
 
 $cartPrice = CarritoService::getCartTotal($_SESSION['cartId']);

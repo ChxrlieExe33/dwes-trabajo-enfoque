@@ -78,7 +78,6 @@ class SaleService {
                     $msg = $msg . ', Producto ' . $bad->getProdName() . ' en talla ' . $bad->getSize();
                 }
 
-                // Rollback to release the DB lock on the rows.
                 $pdo->rollBack();
 
                 die($msg);
@@ -136,8 +135,6 @@ class SaleService {
             ]);
 
             $pdo->commit();
-
-            return true;
 
         } catch (PDOException $e) {
 
