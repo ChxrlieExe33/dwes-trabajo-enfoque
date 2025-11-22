@@ -39,7 +39,7 @@ session_start();
 
     <?php if(isset($_GET['search'])): ?>
 
-        <p class="text-xl w-full text-center">Resultados de la búsqueda: <b><?php echo $_GET['search']; ?></b></p>
+        <p class="text-xl w-full text-center">Resultados de la búsqueda: <b><?php echo htmlspecialchars($_GET['search']); ?></b></p>
 
     <?php endif; ?>
 

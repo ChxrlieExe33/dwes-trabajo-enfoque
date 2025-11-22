@@ -15,8 +15,8 @@ AuthUtils::checkLoginRedirectToLogin();
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $saleInfo = new CompleteSaleRequest($_SESSION['user_id'], date('Y-m-d'), 
-    $_POST['d_ent'], $_POST['c_ent'], $_POST['p_ent'],
-    $_POST['d_fac'], $_POST['c_fac'], $_POST['p_fac']);
+        htmlspecialchars($_POST['d_ent']), htmlspecialchars($_POST['c_ent']), htmlspecialchars($_POST['p_ent']),
+        htmlspecialchars($_POST['d_fac']), htmlspecialchars($_POST['c_fac']), htmlspecialchars($_POST['p_fac']));
 
     SaleService::completeSale($saleInfo, $_SESSION['cartId']);
 
@@ -67,21 +67,21 @@ $userData = UserService::getUserData($_SESSION['user_id']);
             <section class="w-full flex flex-col items-start justify-items-start">
 
                 <label for="d_entrega" class="font-bold">Dirección:</label>
-                <input id="d_entrega" type="text" name="d_ent" value="<?php echo $userData->getDireccionEntrega(); ?>" placeholder="Direccion entrega..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
+                <input required id="d_entrega" type="text" name="d_ent" value="<?php echo $userData->getDireccionEntrega(); ?>" placeholder="Direccion entrega..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
 
             </section>   
 
             <section class="w-full flex flex-col items-start justify-items-start">
 
                 <label for="c_entrega" class="font-bold">Ciudad:</label>
-                <input id="c_entrega" type="text" name="c_ent" value="<?php echo $userData->getCiudadEntrega(); ?>" placeholder="Ciudad entrega..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
+                <input required id="c_entrega" type="text" name="c_ent" value="<?php echo $userData->getCiudadEntrega(); ?>" placeholder="Ciudad entrega..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
             
             </section>   
 
             <section class="w-full flex flex-col items-start justify-items-start">
 
                 <label for="p_entrega" class="font-bold">Provincia:</label>
-                <input id="p_entrega" type="text" name="p_ent" value="<?php echo $userData->getProvinciaEntrega(); ?>" placeholder="Provincia entrega..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
+                <input required id="p_entrega" type="text" name="p_ent" value="<?php echo $userData->getProvinciaEntrega(); ?>" placeholder="Provincia entrega..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
 
             
             </section>
@@ -93,7 +93,7 @@ $userData = UserService::getUserData($_SESSION['user_id']);
             <section class="w-full flex flex-col items-start justify-items-start">
 
                 <label for="d_fac" class="font-bold">Dirección:</label>
-                <input id="d_fac" type="text" name="d_fac" value="<?php echo $userData->getDireccionFacturacion(); ?>" placeholder="Direccion facturacion..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
+                <input required id="d_fac" type="text" name="d_fac" value="<?php echo $userData->getDireccionFacturacion(); ?>" placeholder="Direccion facturacion..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
 
             
             </section>   
@@ -101,7 +101,7 @@ $userData = UserService::getUserData($_SESSION['user_id']);
             <section class="w-full flex flex-col items-start justify-items-start">
 
                 <label for="c_fac" class="font-bold">Ciudad:</label>
-                <input id="c_fac" type="text" name="c_fac" value="<?php echo $userData->getCiudadFacturacion(); ?>" placeholder="Ciudad facturacion..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
+                <input required id="c_fac" type="text" name="c_fac" value="<?php echo $userData->getCiudadFacturacion(); ?>" placeholder="Ciudad facturacion..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
 
             
             </section>   
@@ -109,7 +109,7 @@ $userData = UserService::getUserData($_SESSION['user_id']);
             <section class="w-full flex flex-col items-start justify-items-start">
 
                 <label for="p_fac" class="font-bold">Provincia:</label>
-                <input id="p_fac" type="text" name="p_fac" value="<?php echo $userData->getProvinciaFacturacion(); ?>" placeholder="Provincia facturacion..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
+                <input required id="p_fac" type="text" name="p_fac" value="<?php echo $userData->getProvinciaFacturacion(); ?>" placeholder="Provincia facturacion..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
             
             </section>
 

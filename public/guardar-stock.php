@@ -15,4 +15,6 @@ if (!isset($_GET['prodId']) || !isset($_GET['size']) ||!isset($_GET['count'])) {
 
 ProductService::addStockOfProduct($_GET['prodId'], $_GET['count'],  $_GET['size']);
 
-header('Location: producto.php?id=' . $_GET['prodId']);
+$msg = "Acabas de guardar " . $_GET['count'] . " de este producto en talla " . $_GET['size'] . "."; 
+
+header('Location: actualizaproducto.php?id=' . $_GET['prodId'] . "&msg=" . $msg);

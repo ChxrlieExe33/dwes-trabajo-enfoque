@@ -12,7 +12,9 @@ AuthUtils::restrictPageAdminOnly();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $data = new UpdateProductDataRequest($_POST['name'], $_POST['description'], $_POST['price'], $_POST['colour'], $_POST['factory']);
+    $data = new UpdateProductDataRequest(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['description'] ?? ''), 
+                                        htmlspecialchars($_POST['price']), htmlspecialchars($_POST['colour']), 
+                                        htmlspecialchars($_POST['factory']));
 
     ProductService::updateExistingProduct($data, $_POST['id']);
 
@@ -48,26 +50,30 @@ if ($product == null) {
 
         <form class="w-full px-[4%] md:px-[10%] lg:px-[30%] flex flex-col items-center justify-items-start py-8 gap-4" method='post' enctype='multipart/form-data'>
 
+            <?php if (isset($_GET['msg'])): ?>
+                <p class="text-xl text-green-600 font-bold"><?php echo htmlspecialchars($_GET['msg']); ?></p>
+            <?php endif; ?>
+
             <h1 class="text-2xl font-bold mb-4">Actualizar producto con ID <?php echo $_GET['id']; ?></h1>
 
             <!-- Campo invisible para enviar el ID para delante con el formulario, ya que se pierde el $_GET['id'] -->
             <input class="hidden" name="id" type="text" value="<?php echo $_GET['id']; ?>">
         
-            <input type="text" name="name" value="<?php echo $product->getNombre(); ?>" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md" placeholder="Nombre del producto">
+            <input required type="text" name="name" value="<?php echo $product->getNombre(); ?>" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md" placeholder="Nombre del producto">
 
-            <input type="text" name="factory" value="<?php echo $product->getFabricante(); ?>" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md" placeholder="Nombre del fabricante">
+            <input required type="text" name="factory" value="<?php echo $product->getFabricante(); ?>" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md" placeholder="Nombre del fabricante">
 
             <textarea type="text" name="description" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 min-h-[200px] shadow-gray-300/60 shadow-md" placeholder="Descripción"><?php echo $product->getDescripcion(); ?></textarea>
 
             <span class="w-full flex flex-col md:flex-row items-center justify-between gap-4">
 
-                <input type="number" name="price" value="<?php echo $product->getPrecio(); ?>" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Precio">
+                <input required type="number" name="price" value="<?php echo $product->getPrecio(); ?>" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Precio">
 
-                <input type="text" name="colour" value="<?php echo $product->getColor(); ?>" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Color">
+                <input required type="text" name="colour" value="<?php echo $product->getColor(); ?>" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Color">
 
             </span>
 
-            <button type="submit" class="px-6 py-2 rounded-3xl bg-blue-700 text-white font-bold">Actualiza</button>
+            <button type="submit" class="px-6 py-2 rounded-3xl bg-blue-700 text-white font-bold transform transition-transform duration-300 hover:scale-110 cursor-pointer">Actualiza</button>
 
         </form>
 
@@ -81,13 +87,13 @@ if ($product == null) {
 
                 <input type="number" name="prodId" class="hidden" value="<?php echo $_GET['id']; ?>">
 
-                <input type="number" name="size"  class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Talla">
+                <input required type="number" name="size"  class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Talla">
 
-                <input type="number" name="count" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Cantidad">
+                <input required type="number" name="count" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Cantidad">
 
             </span>
 
-            <button type="submit" class="px-6 py-2 rounded-3xl bg-blue-700 text-white font-bold">Añadir</button>
+            <button type="submit" class="px-6 py-2 rounded-3xl bg-blue-700 text-white font-bold transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir</button>
 
         </form>
 

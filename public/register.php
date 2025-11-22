@@ -29,7 +29,10 @@
             return;
         }
 
-        $registerRequest = new RegisterAccountRequest($_POST["nombre"], $_POST["apellidos"], $_POST["email"], $_POST["password"], $_POST["direccion"], $_POST["ciudad"], $_POST["provincia"]);
+        // Crear un objeto para pasar al servicio, y usar htmlspecialchars para evitar ataques XSS.
+        $registerRequest = new RegisterAccountRequest(htmlspecialchars($_POST["nombre"]), htmlspecialchars($_POST["apellidos"]), 
+                                                    htmlspecialchars($_POST["email"]), $_POST["password"], 
+                                                    htmlspecialchars($_POST["direccion"]), htmlspecialchars($_POST["ciudad"]), htmlspecialchars($_POST["provincia"]));
 
         $success = AuthService::register($registerRequest);
 
