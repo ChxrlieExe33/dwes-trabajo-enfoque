@@ -12,7 +12,10 @@ AuthUtils::restrictPageAdminOnly();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $productRequest = new SaveNewProductRequest($_POST['name'], $_POST['description'], $_POST['price'], $_POST['colour'], $_POST['factory'], $_FILES);
+    // Crear el objeto para el servicio y proteger contra XSS con htmlspecialchars.
+    $productRequest = new SaveNewProductRequest(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['description'] ?? ''),
+                                                htmlspecialchars($_POST['price']), htmlspecialchars($_POST['colour']),
+                                                htmlspecialchars($_POST['factory']), $_FILES);
 
     $prodId = ProductService::insertNewProduct($productRequest);
 

@@ -15,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $passDontMatch = true;
     }
 
-    UserService::registerUserAdminPanel($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['pass'], $_POST['admin'] ?? false);
+    // Crear objeto para el servicio y proteger contra XSS, pero no en la contraseña, ya que se hashea y esto lo puede cambiar.
+    UserService::registerUserAdminPanel(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['surname']),
+                                        htmlspecialchars($_POST['email']), $_POST['pass'], $_POST['admin'] ?? false);
 
 }
 
