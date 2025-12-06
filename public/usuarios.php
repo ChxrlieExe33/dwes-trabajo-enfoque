@@ -15,10 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $passDontMatch = true;
     }
 
-    // Crear objeto para el servicio y proteger contra XSS, pero no en la contraseña, ya que se hashea y esto lo puede cambiar.
-    UserService::registerUserAdminPanel(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['surname']), 
-                                        htmlspecialchars($_POST['email']), $_POST['pass'], 
-                                        $_POST['admin'] ?? false);
+    UserService::registerUserAdminPanel($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['pass'], $_POST['admin'] ?? false);
 
 }
 
@@ -98,12 +95,12 @@ $users = UserService::getUserListPaginated($page);
 
                 <span class="w-full flex items-center justify-between">
 
-                    <input required type="text" name="name" class="px-6 py-2 border-1 border-gray-300/80 shadow-gray-300/50 shadow-lg rounded-2xl w-[48%]" placeholder="Nombre">
-                    <input required type="text" name="surname" class="px-6 py-2 border-1 border-gray-300/80 shadow-gray-300/50 shadow-lg rounded-2xl w-[48%]" placeholder="Apellidos">
+                    <input type="text" name="name" class="px-6 py-2 border-1 border-gray-300/80 shadow-gray-300/50 shadow-lg rounded-2xl w-[48%]" placeholder="Nombre">
+                    <input type="text" name="surname" class="px-6 py-2 border-1 border-gray-300/80 shadow-gray-300/50 shadow-lg rounded-2xl w-[48%]" placeholder="Apellidos">
 
                 </span>
 
-                <input required type="text" name="email" class="px-6 py-2 border-1 border-gray-300/80 shadow-gray-300/50 shadow-lg rounded-2xl w-full" placeholder="Email">
+                <input type="text" name="email" class="px-6 py-2 border-1 border-gray-300/80 shadow-gray-300/50 shadow-lg rounded-2xl w-full" placeholder="Email">
 
                 <?php if(isset($passDontMatch)): ?>
                     <p class="text-lg text-red-800">Las contraseñas no son iguales.</p>
@@ -111,8 +108,8 @@ $users = UserService::getUserListPaginated($page);
 
                 <span class="w-full flex items-center justify-between">
 
-                    <input required type="password" name="pass" class="px-6 py-2 border-1 border-gray-300/80 shadow-gray-300/50 shadow-lg rounded-2xl w-[48%]" placeholder="Contraseña">
-                    <input required type="password" name="confirmPass" class="px-6 py-2 border-1 border-gray-300/80 shadow-gray-300/50 shadow-lg rounded-2xl w-[48%]" placeholder="Confirmar contraseña">
+                    <input type="password" name="pass" class="px-6 py-2 border-1 border-gray-300/80 shadow-gray-300/50 shadow-lg rounded-2xl w-[48%]" placeholder="Contraseña">
+                    <input type="password" name="confirmPass" class="px-6 py-2 border-1 border-gray-300/80 shadow-gray-300/50 shadow-lg rounded-2xl w-[48%]" placeholder="Confirmar contraseña">
 
                 </span>
 

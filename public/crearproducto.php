@@ -12,10 +12,7 @@ AuthUtils::restrictPageAdminOnly();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Crear el objeto para el servicio y proteger contra XSS con htmlspecialchars.
-    $productRequest = new SaveNewProductRequest(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['description'] ?? ''), 
-                                                htmlspecialchars($_POST['price']), htmlspecialchars($_POST['colour']), 
-                                                htmlspecialchars($_POST['factory']), $_FILES);
+    $productRequest = new SaveNewProductRequest($_POST['name'], $_POST['description'], $_POST['price'], $_POST['colour'], $_POST['factory'], $_FILES);
 
     $prodId = ProductService::insertNewProduct($productRequest);
 
@@ -42,17 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <h1 class="text-2xl font-bold mb-4">Nuevo producto</h1>
         
-            <input required type="text" name="name" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md" placeholder="Nombre del producto">
+            <input type="text" name="name" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md" placeholder="Nombre del producto">
 
-            <input required type="text" name="factory" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md" placeholder="Nombre del fabricante">
+            <input type="text" name="factory" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md" placeholder="Nombre del fabricante">
 
             <textarea type="text" name="description" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 min-h-[200px] shadow-gray-300/60 shadow-md" placeholder="Descripción"></textarea>
 
             <span class="w-full flex flex-col md:flex-row items-center justify-between gap-4">
 
-                <input required type="number" name="price" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Precio">
+                <input type="number" name="price" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Precio">
 
-                <input required type="text" name="colour" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Color">
+                <input type="text" name="colour" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Color">
 
             </span>
 

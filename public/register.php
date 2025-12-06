@@ -56,62 +56,86 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Registro Zapatoland</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
+<body class="bg-gradient-to-br from-blue-50 to-blue-200 min-h-screen flex items-center justify-center p-4">
 
-<main class="w-full min-h-screen flex flex-col items-center justify-center bg-blue-200/50">
+<main class="w-full max-w-2xl bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 flex flex-col items-center gap-8 border border-white/40">
 
-    <form class="my-8 bg-white border-1 border-gray-400/80 shadow-gray-400/50 shadow-xl w-[90%] lg:w-[40%] flex flex-col items-center justify-center py-8 px-4 lg:px-8 gap-6 rounded-3xl" method="post">
+    <h1 class="text-4xl font-extrabold tracking-tight text-blue-700">Zapatoland</h1>
+    <p class="text-lg text-gray-600">Crea tu cuenta</p>
 
-        <h1 class="text-2xl text-blue-800 font-bold">Zapatoland</h1>
-        <p class="text-xl">Crea tu cuenta</p>
+    <form method="post" class="w-full flex flex-col gap-8">
 
-        <section class="w-full flex flex-col items-center justify-center gap-2 rounded-3xl">
-
-            <h2 class="font-bold">Datos personales</h2>
+        <!-- DATOS PERSONALES -->
+        <section class="w-full flex flex-col gap-4">
+            <h2 class="text-xl font-semibold text-blue-700">Datos personales</h2>
 
             <?php if($emailTaken): ?>
-                <p class="text-red-800 font-bold">Este correo yá está en uso.</p>
+                <p class="text-red-600 font-semibold text-center w-full">Este correo ya está en uso.</p>
             <?php endif; ?>
 
-            <input type="text" name="nombre" placeholder="Nombre..." class="border-1 border-gray-300/70 shadow-gray-300/50 shadow-md px-6 py-2 rounded-2xl outline-none bg-slate-200 w-[90%] lg:w-[80%]" required>
-            <input type="text" name="apellidos" placeholder="Apellidos..." class="border-1 border-gray-300/70 shadow-gray-300/50 shadow-md px-6 py-2 rounded-2xl outline-none bg-slate-200 w-[90%] lg:w-[80%]" required>
-            <input type="email" name="email" placeholder="Email..." class="border-1 border-gray-300/70 shadow-gray-300/50 shadow-md px-6 py-2 rounded-2xl outline-none bg-slate-200 w-[90%] lg:w-[80%]" required>
+            <input type="text" name="nombre" placeholder="Nombre"
+                   class="w-full px-4 py-3 rounded-xl bg-gray-100 border border-gray-300
+                           focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
 
+            <input type="text" name="apellidos" placeholder="Apellidos"
+                   class="w-full px-4 py-3 rounded-xl bg-gray-100 border border-gray-300
+                           focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
+
+            <input type="email" name="email" placeholder="Email"
+                   class="w-full px-4 py-3 rounded-xl bg-gray-100 border border-gray-300
+                           focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
         </section>
 
-        <section class="w-full flex flex-col items-center justify-center gap-2 rounded-3xl">
+        <!-- DIRECCIÓN -->
+        <section class="w-full flex flex-col gap-4">
+            <h2 class="text-xl font-semibold text-blue-700">Dirección</h2>
 
-            <h2 class="font-bold">Dirección</h2>
+            <input type="text" name="direccion" placeholder="Dirección"
+                   class="w-full px-4 py-3 rounded-xl bg-gray-100 border border-gray-300
+                           focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
 
-            <input type="text" name="direccion" placeholder="Dirección..." class="border-1 border-gray-300/70 shadow-gray-300/50 shadow-md px-6 py-2 rounded-2xl outline-none bg-slate-200 w-[90%] lg:w-[80%]" required>
-            <input type="text" name="ciudad" placeholder="Ciudad..." class="border-1 border-gray-300/70 shadow-gray-300/50 shadow-md px-6 py-2 rounded-2xl outline-none bg-slate-200 w-[90%] lg:w-[80%]" required>
-            <input type="text" name="provincia" placeholder="Provincia..." class="border-1 border-gray-300/70 shadow-gray-300/50 shadow-md px-6 py-2 rounded-2xl outline-none bg-slate-200 w-[90%] lg:w-[80%]" required>
+            <input type="text" name="ciudad" placeholder="Ciudad"
+                   class="w-full px-4 py-3 rounded-xl bg-gray-100 border border-gray-300
+                           focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
 
+            <input type="text" name="provincia" placeholder="Provincia"
+                   class="w-full px-4 py-3 rounded-xl bg-gray-100 border border-gray-300
+                           focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
         </section>
 
-        <span class="w-[80%] h-2 bg-slate-300 rounded-3xl"></span>
+        <!-- CONTRASEÑA -->
+        <section class="w-full flex flex-col gap-4">
+            <h2 class="text-xl font-semibold text-blue-700">Contraseña</h2>
 
-        <section class="w-full flex flex-col items-center justify-center gap-2 rounded-3xl">
-
-            <h2 class="font-bold">Contraseña</h2>
             <?php if($passwordsDontMatch): ?>
-                <p class="text-red-800 font-bold">Las contraseñas no son iguales</p>
+                <p class="text-red-600 font-semibold text-center w-full">Las contraseñas no coinciden.</p>
             <?php endif; ?>
-            <input type="password" name="password" placeholder="Contraseña..." class="border-1 border-gray-300/70 shadow-gray-300/50 shadow-md px-6 py-2 rounded-2xl outline-none bg-slate-200 w-[90%] lg:w-[80%]" required>
-            <input type="password" name="confirm_password" placeholder="Repite contraseña..." class="border-1 border-gray-300/70 shadow-gray-300/50 shadow-md px-6 py-2 rounded-2xl outline-none bg-slate-200 w-[90%] lg:w-[80%]" required>
 
+            <input type="password" name="password" placeholder="Contraseña"
+                   class="w-full px-4 py-3 rounded-xl bg-gray-100 border border-gray-300
+                           focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
+
+            <input type="password" name="confirm_password" placeholder="Confirmar contraseña"
+                   class="w-full px-4 py-3 rounded-xl bg-gray-100 border border-gray-300
+                           focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
         </section>
 
-        <button type="submit" class="px-8 py-2 bg-blue-800 rounded-3xl text-white font-bold cursor-pointer shadow-xl transform transition-transform duration-300 hover:scale-110">Submit</button>
+        <!-- SUBMIT -->
+        <button type="submit"
+                class="w-full py-3 bg-blue-600 text-white font-semibold rounded-xl shadow-lg
+                       hover:bg-blue-700 transition-all duration-200">
+            Crear cuenta
+        </button>
 
-        <a href="login.php" class="text-black text-lg lg:text-xl font-bold hover:text-gray-400">Ya tienes cuenta? Inicia sesión</a>
+        <a href="login.php"
+           class="text-blue-600 font-semibold hover:text-blue-800 text-center transition">
+            ¿Ya tienes cuenta? Inicia sesión
+        </a>
 
     </form>
-
 </main>
 
 </body>

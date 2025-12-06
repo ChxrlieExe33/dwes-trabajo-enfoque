@@ -1,91 +1,78 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
 
-    require __DIR__ . '/../vendor/autoload.php';
+use Cdcrane\Dwes\Utils\AuthUtils;
 
-    use Cdcrane\Dwes\Utils\AuthUtils;
-
-    $loggedIn = AuthUtils::isLoggedInAllowAll();
-
+$loggedIn = AuthUtils::isLoggedInAllowAll();
 ?>
 
-<div class="w-full h-16 bg-gradient-to-b from-blue-300 via-teal-300 to-blue-500 shadow-lg">
+<div class="w-full h-16 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 shadow-xl border-b-1 border-gray-300/70">
+    <nav class="w-full h-full flex items-center justify-between px-8 bg-white/10 backdrop-blur-lg border-b border-white/20 text-white">
 
-<nav class="w-full h-full flex items-center justify-between px-8 bg-white/10 backdrop-blur-md border-b-2 border-white/20 text-white">
+        <a href="index.php" class="text-2xl font-bold tracking-wide hover:text-gray-300 transition cursor-pointer">
+            Zapatoland
+        </a>
 
-    <a class="text-2xl font-bold cursor-pointer hover:text-gray-600" href="index.php">Zapatoland</a>
+        <span class="hidden md:flex items-center gap-6 h-full [&>a]:flex [&>a]:items-center [&>a]:text-lg [&>a]:font-semibold [&>a]:tracking-wide [&>a]:transition [&>a]:hover:text-gray-300">
+            <a href="productos.php">Productos</a>
 
-    <span class="hidden md:flex items-center-safe justify evenly gap-4 h-full [&>a]:hover:border-b-2 [&>a]:hover:border-gray-600 [&>a]:hover:text-gray-600 [&>a]:cursor-pointer [&>a]:h-full [&>a]:content-center">
+            <?php if ($loggedIn && !$_SESSION['es_admin']): ?>
+                <a href="micuenta.php">Mi cuenta</a>
+                <a href="miscompras.php">Mis compras</a>
+                <a href="micarrito.php" class="flex items-center gap-1">
+                    Carrito
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6">
+                        <path d="M6 5h15l-2 7H7M20 16H8L6 3H3m6 17a1 1 0 110-2 1 1 0 010 2zm11 0a1 1 0 110-2 1 1 0 010 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </a>
+                <a href="logout.php" class="text-red-500 hover:text-red-700">Log out</a>
+            <?php endif; ?>
 
-        <a class="font-bold tracking-wide" href="productos.php">Productos</a>
+            <?php if ($loggedIn && $_SESSION['es_admin']): ?>
+                <a href="admin.php">Administración</a>
+                <a href="logout.php" class="text-red-500 hover:text-red-700">Log out</a>
+            <?php endif; ?>
 
-        <?php if ($loggedIn && $_SESSION['es_admin'] == false): ?>
+            <?php if (!$loggedIn): ?>
+                <a href="login.php" class="text-white hover:text-gray-200">Log in</a>
+            <?php endif; ?>
+        </span>
 
-            <a class="font-bold tracking-wide" href="micuenta.php">Mi cuenta</a>
-            <a class="font-bold tracking-wide" href="miscompras.php">Mis compras</a>
-            <a class="font-bold tracking-wide" href="micarrito.php">Carrito
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" class="w-6 h-6 inline"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-            </a>
-            <a class="font-bold text-red-600 tracking-wide" href="logout.php">Log out</a>
-
-        <?php endif; ?>
-
-        <?php if($loggedIn && $_SESSION['es_admin'] == true): ?>
-
-            <a class="font-bold tracking-wide" href="admin.php">Administración</a>
-            <a class="font-bold text-red-600 tracking-wide" href="logout.php">Log out</a>
-
-        <?php endif; ?>
-
-        <?php if(!$loggedIn): ?>
-
-            <a class="text-white font-bold tracking-wide" href="login.php">Log in</a>
-
-        <?php endif; ?>
-
-    </span>
-
-    <svg id="hamburger" viewBox="0 -2 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff" stroke="#ffffff" class="w-6 h-6 md:hidden"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>hamburger-2</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" > <g id="Icon-Set"  transform="translate(-308.000000, -1037.000000)" fill="#ffffff"> <path d="M336,1063 L312,1063 C310.896,1063 310,1062.1 310,1061 C310,1059.9 310.896,1059 312,1059 L336,1059 C337.104,1059 338,1059.9 338,1061 C338,1062.1 337.104,1063 336,1063 L336,1063 Z M336,1057 L312,1057 C309.791,1057 308,1058.79 308,1061 C308,1063.21 309.791,1065 312,1065 L336,1065 C338.209,1065 340,1063.21 340,1061 C340,1058.79 338.209,1057 336,1057 L336,1057 Z M336,1053 L312,1053 C310.896,1053 310,1052.1 310,1051 C310,1049.9 310.896,1049 312,1049 L336,1049 C337.104,1049 338,1049.9 338,1051 C338,1052.1 337.104,1053 336,1053 L336,1053 Z M336,1047 L312,1047 C309.791,1047 308,1048.79 308,1051 C308,1053.21 309.791,1055 312,1055 L336,1055 C338.209,1055 340,1053.21 340,1051 C340,1048.79 338.209,1047 336,1047 L336,1047 Z M312,1039 L336,1039 C337.104,1039 338,1039.9 338,1041 C338,1042.1 337.104,1043 336,1043 L312,1043 C310.896,1043 310,1042.1 310,1041 C310,1039.9 310.896,1039 312,1039 L312,1039 Z M312,1045 L336,1045 C338.209,1045 340,1043.21 340,1041 C340,1038.79 338.209,1037 336,1037 L312,1037 C309.791,1037 308,1038.79 308,1041 C308,1043.21 309.791,1045 312,1045 L312,1045 Z" id="hamburger-2"> </path> </g> </g> </g></svg>
-
-</nav>
-
+        <svg id="hamburger" class="w-7 h-7 md:hidden cursor-pointer hover:scale-110 transition" viewBox="0 0 32 32" fill="none" stroke="currentColor">
+            <path d="M4 8h24M4 16h24M4 24h24" stroke-width="3" stroke-linecap="round"></path>
+        </svg>
+    </nav>
 </div>
 
+<div id="overlay" class="fixed inset-0 bg-black/40 opacity-0 invisible transition-opacity duration-300 z-40"></div>
 
-<div id="overlay" class="fixed inset-0 bg-black/50 bg-opacity-40 opacity-0 invisible transition-opacity duration-300 z-40"></div>
+<nav id="sidenav" class="fixed top-0 right-0 w-64 h-full bg-gray-900 text-white transform translate-x-full transition-transform duration-300 z-50 flex flex-col gap-6 pt-20 px-6 text-2xl font-semibold">
 
-<!-- Hidden nav menu for phones -->
-<nav id="sidenav" class="fixed top-0 right-0 w-50 h-full bg-slate-800 text-white transform translate-x-full transition-transform duration-300 z-50 flex flex-col items-end gap-4 pt-18 px-4 [&>a]:hover:text-gray-400 [&>a]:text-2xl">
+    <a href="productos.php" class="hover:text-blue-300 transition">Productos</a>
 
-    <a href="productos.php">Productos</a>
-
-    <?php if ($loggedIn && $_SESSION['es_admin'] == false): ?>
-
-        <a href="micuenta.php">Mi cuenta</a>
-        <a href="miscompras.php">Mis compras</a>
-        <a href="micarrito.php">Carrito
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" class="w-6 h-6 inline"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+    <?php if ($loggedIn && !$_SESSION['es_admin']): ?>
+        <a href="micuenta.php" class="hover:text-blue-300 transition">Mi cuenta</a>
+        <a href="miscompras.php" class="hover:text-blue-300 transition">Mis compras</a>
+        <a href="micarrito.php" class="hover:text-blue-300 transition flex items-center gap-2">
+            Carrito
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6">
+                <path d="M6 5h15l-2 7H7M20 16H8L6 3H3m6 17a1 1 0 110-2 1 1 0 010 2zm11 0a1 1 0 110-2 1 1 0 010 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
         </a>
-        <a class="text-red-600 mt-auto self-center mb-8 text-3xl" href="logout.php">Log out</a>
-
+        <a href="logout.php" class="text-red-500 hover:text-red-700 mt-auto mb-10 self-center text-3xl">Log out</a>
     <?php endif; ?>
 
-    <?php if($loggedIn && $_SESSION['es_admin'] == true): ?>
-
-            <a href="admin.php">Administración</a>
-            <a class="text-red-600 mt-auto self-center mb-8 text-3xl" href="logout.php">Log out</a>
-
+    <?php if ($loggedIn && $_SESSION['es_admin']): ?>
+        <a href="admin.php" class="hover:text-blue-300 transition">Administración</a>
+        <a href="logout.php" class="text-red-500 hover:text-red-700 mt-auto mb-10 self-center text-3xl">Log out</a>
     <?php endif; ?>
 
-    <?php if(!$loggedIn): ?>
-
-        <a class="text-blue-300 font-bold mt-auto mb-8 text-3xl self-center" href="login.php">Log in</a>
-
+    <?php if (!$loggedIn): ?>
+        <a href="login.php" class="text-blue-300 hover:text-blue-400 mt-auto mb-10 self-center text-3xl">Log in</a>
     <?php endif; ?>
-
 </nav>
 
 <script>
-
     const hamburger = document.getElementById('hamburger');
     const sidenav = document.getElementById('sidenav');
     const overlay = document.getElementById('overlay');
@@ -96,11 +83,9 @@
         overlay.classList.toggle('invisible');
     });
 
-
     overlay.addEventListener('click', () => {
         sidenav.classList.add('translate-x-full');
         overlay.classList.add('opacity-0');
         overlay.classList.add('invisible');
     });
-
 </script>

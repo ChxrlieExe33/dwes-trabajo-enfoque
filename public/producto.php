@@ -165,40 +165,45 @@
                 <p class="text-xl text-green-600">Añadido al carrito en talla <?php echo $_POST["size"];?>.</p>
             <?php endif; ?>
 
-            <?php if($_SESSION['es_admin'] != true): ?>
-                <form class="flex items-center justify-center gap-4" method="post">
+            <form class="flex items-center justify-center gap-4" method="post">
 
+                <!-- Mostrar solo el botón de actualizar si hay sesión y el usuario es admin -->
+                <?php if(isset($_SESSION['es_admin']) && $_SESSION['es_admin']): ?>
+
+                    <a href="actualizaproducto.php?id=<?php echo $_GET['id']; ?>" class="px-6 py-2 bg-blue-500 rounded-lg text-white font-bold transform transition-transform duration-300 hover:scale-110 cursor-pointer">Actualizar</a>
+
+                <?php else: ?> <!-- Mostrar el formulario de compra si es usuario no admin / sin sesión -->
+
+                    <!-- Campo ID escondido para reenviar en el POST. -->
                     <input type="text" name="id" value="<?php echo $productData->getId(); ?>" class="hidden">
 
                     <?php if(!empty($stock)): ?>
-                    
-                        <p class="text-lg font-bold">Talla: </p>
 
-                        <select name="size" class="px-6 py-2 border-1 border-gray-300/80 rounded-2xl shadow-lg">
+                        <label for="size" class="text-lg font-bold">Talla: </label>
+
+                        <select id="size" name="size" class="px-6 py-2 border-1 border-gray-300/80 rounded-lg shadow-lg">
                             <?php foreach($stock as $size): ?>
                                 <option value="<?php echo $size->getSize(); ?>"><?php echo $size->getSize(); ?></option>
                             <?php endforeach; ?>
                         </select>
 
-                        <?php if(isset($_SESSION['cartId'])): ?>
-                            <button type="submit" class="shadow-lg px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
+                        <!-- Mostrar el botón de añadir al carrito si el usuario tiene sesión, si no, se sustituye con un enlace al login. -->
+                        <?php if(isset($_SESSION['email'])): ?>
+                            <button type="submit" class="shadow-lg px-6 py-2 bg-blue-500 text-white font-bold rounded-lg transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</button>
                         <?php else: ?>
-                            <a href="login.php" class="shadow-lg px-6 py-2 bg-blue-500 text-white font-bold rounded-2xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</a>
+                            <a href="login.php" class="shadow-lg px-6 py-2 bg-blue-500 text-white font-bold rounded-lg transform transition-transform duration-300 hover:scale-110 cursor-pointer">Añadir al carrito</a>
                         <?php endif; ?>
-                        
+
                     <?php else: ?>
 
                         <p class="text-2xl text-red-800">Esto ya no está disponible</p>
 
-                    <?php endif; ?>    
-                    
-                </form>
+                    <?php endif; ?>
 
-            <?php else: ?>
+                <?php endif; ?>
 
-                <a href="actualizaproducto.php?id=<?php echo $_GET['id']; ?>" class="px-6 py-2 bg-blue-500 rounded-2xl text-white font-bold transform transition-transform duration-300 hover:scale-110 cursor-pointer">Actualizar</a>
+            </form>
 
-            <?php endif; ?>
 
         </main>
 
