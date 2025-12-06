@@ -68,7 +68,6 @@
 
     <form method="post" class="w-full flex flex-col gap-8">
 
-        <!-- DATOS PERSONALES -->
         <section class="w-full flex flex-col gap-4">
             <h2 class="text-xl font-semibold text-blue-700">Datos personales</h2>
 
@@ -89,7 +88,6 @@
                            focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
         </section>
 
-        <!-- DIRECCIÓN -->
         <section class="w-full flex flex-col gap-4">
             <h2 class="text-xl font-semibold text-blue-700">Dirección</h2>
 
@@ -106,7 +104,6 @@
                            focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
         </section>
 
-        <!-- CONTRASEÑA -->
         <section class="w-full flex flex-col gap-4">
             <h2 class="text-xl font-semibold text-blue-700">Contraseña</h2>
 
@@ -123,7 +120,6 @@
                            focus:ring-2 focus:ring-blue-400 outline-none text-gray-800" required>
         </section>
 
-        <!-- SUBMIT -->
         <button type="submit"
                 class="w-full py-3 bg-blue-600 text-white font-semibold rounded-xl shadow-lg
                        hover:bg-blue-700 transition-all duration-200">
