@@ -12,10 +12,14 @@ AuthUtils::restrictPageAdminOnly();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Crear el objeto para el servicio y proteger contra XSS con htmlspecialchars.
-    $productRequest = new SaveNewProductRequest(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['description'] ?? ''),
-                                                htmlspecialchars($_POST['price']), htmlspecialchars($_POST['colour']),
-                                                htmlspecialchars($_POST['factory']), $_FILES);
+    $productRequest = new SaveNewProductRequest(
+        htmlspecialchars($_POST['name']),
+        htmlspecialchars($_POST['description'] ?? ''),
+        htmlspecialchars($_POST['price']),
+        htmlspecialchars($_POST['colour']),
+        htmlspecialchars($_POST['factory']),
+        $_FILES
+    );
 
     $prodId = ProductService::insertNewProduct($productRequest);
 
@@ -26,41 +30,84 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Nuevo producto</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Nuevo producto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
 
-    <?php include_once 'navbar.php' ?>
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200">
 
-        <form class="w-full px-[4%] md:px-[10%] lg:px-[30%] flex flex-col items-center justify-items-start py-8 gap-4" method='post' enctype='multipart/form-data'>
+<?php include_once 'navbar.php' ?>
 
-            <h1 class="text-2xl font-bold mb-4">Nuevo producto</h1>
-        
-            <input type="text" name="name" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md" placeholder="Nombre del producto">
+<div class="w-full px-4 md:px-10 lg:px-[25%] py-10">
+    <form
+            class="bg-white/80 backdrop-blur-md shadow-xl rounded-3xl p-8 sm:p-10 flex flex-col gap-6 border border-gray-200"
+            method="post"
+            enctype="multipart/form-data"
+    >
 
-            <input type="text" name="factory" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md" placeholder="Nombre del fabricante">
+        <h1 class="text-3xl font-extrabold text-gray-800 text-center mb-4">
+            Nuevo producto
+        </h1>
 
-            <textarea type="text" name="description" class="w-full px-6 py-2 rounded-xl border-1 border-gray-300/80 min-h-[200px] shadow-gray-300/60 shadow-md" placeholder="Descripción"></textarea>
+        <input
+                type="text"
+                name="name"
+                class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-blue-300/40 transition-all shadow-sm"
+                placeholder="Nombre del producto"
+        >
 
-            <span class="w-full flex flex-col md:flex-row items-center justify-between gap-4">
+        <input
+                type="text"
+                name="factory"
+                class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-blue-300/40 transition-all shadow-sm"
+                placeholder="Nombre del fabricante"
+        >
 
-                <input type="number" name="price" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Precio">
+        <textarea
+                name="description"
+                class="w-full px-5 py-3 rounded-xl border border-gray-300 min-h-[180px] focus:ring-4 focus:ring-blue-300/40 transition-all shadow-sm"
+                placeholder="Descripción"
+        ></textarea>
 
-                <input type="text" name="colour" class="px-6 py-2 rounded-xl border-1 border-gray-300/80 shadow-gray-300/60 shadow-md w-full md:min-w-[45%]" placeholder="Color">
+        <div class="flex flex-col md:flex-row gap-5">
 
-            </span>
+            <input
+                    type="number"
+                    name="price"
+                    class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-blue-300/40 transition-all shadow-sm"
+                    placeholder="Precio"
+            >
 
-            <input type="file" multiple name="file[]" id="file" class="w-full border-1 border-gray-300/80 shadow-gray-300/60 shadow-md p-8 rounded-xl">
+            <input
+                    type="text"
+                    name="colour"
+                    class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-blue-300/40 transition-all shadow-sm"
+                    placeholder="Color"
+            >
 
-            <button type="submit" class="px-6 py-2 rounded-3xl bg-blue-700 text-white font-bold transform transition-transform duration-300 hover:scale-110 cursor-pointer">Submit</button>
+        </div>
 
-        </form>
-    
-    </body>
+        <input
+                type="file"
+                multiple
+                name="file[]"
+                id="file"
+                class="w-full border border-gray-300 shadow-sm p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition"
+        >
+
+        <button
+                type="submit"
+                class="w-full py-3 rounded-2xl bg-blue-600 text-white text-lg font-semibold shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300"
+        >
+            Crear producto
+        </button>
+
+    </form>
+</div>
+
+</body>
 </html>

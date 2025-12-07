@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -21,58 +21,72 @@ $sales = SaleService::getAllSalesPaginated($page);
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Todas compras</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Todas compras</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
 
-        <?php include 'navbar.php'; ?>
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200">
 
-        <main class="flex flex-col items-center justify-center px-[4%] md:px-[10%] lg:px-[25%] py-8">
+<?php include 'navbar.php'; ?>
 
-            <?php foreach($sales as $entry): ?>
+<main class="flex flex-col items-center justify-start px-[4%] md:px-[10%] lg:px-[25%] py-10 gap-6">
 
-                <section class="w-full p-6 border-b-2 border-gray-300/90 flex items-center justify-between">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Todas las compras</h1>
 
-                    <p><?php echo $entry->getId(); ?></p>
-                    <p><?php echo $entry->getDate(); ?></p>
-                    <p>Entrega: <?php echo $entry->getProvEntrega(); ?></p>
-                    <b>€<?php echo $entry->getTotal(); ?></b>
+    <?php foreach($sales as $entry): ?>
 
-                </section>
+        <section
+                class="w-full bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-md border border-gray-200 flex flex-col md:flex-row md:items-center md:justify-between gap-2 hover:shadow-xl transition-all"
+        >
+            <p class="text-gray-700 font-medium">#<?php echo $entry->getId(); ?></p>
 
-            <?php endforeach; ?>
+            <p class="text-gray-600"><?php echo $entry->getDate(); ?></p>
 
-            <?php if(empty($sales)): ?>
+            <p class="text-gray-600">Entrega:
+                <span class="font-semibold"><?php echo $entry->getProvEntrega(); ?></span>
+            </p>
 
-                <p class="text-2xl my-20">No hay compras.</p>
+            <b class="text-lg text-blue-700">€<?php echo $entry->getTotal(); ?></b>
+        </section>
 
-            <?php endif; ?>
+    <?php endforeach; ?>
 
-            <span class="w-[80%] md:w-[45%] flex items-center justify-evenly py-2 px-6 rounded-2xl bg-gray-200/70 border-1 border-gray-400/80 my-6 shadow-lg">
+    <?php if(empty($sales)): ?>
+        <p class="text-2xl text-gray-500 my-20">No hay compras.</p>
+    <?php endif; ?>
 
-                <?php if($page != 0): ?>
-                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg transform transition-transform duration-300 hover:scale-110 cursor-pointer" href="compras.php?page=<?php echo $page - 1; ?>"><</a>
-                <?php else: ?>
-                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg invisible" href="compras.php?page=<?php echo $page - 1; ?>"><</a>
-                <?php endif; ?>
-                    
-                <p>Página <?php echo $page; ?></p>
+    <!-- Pagination -->
+    <div class="flex items-center gap-4 mt-6 bg-white/70 backdrop-blur-md border border-gray-300 rounded-2xl px-6 py-3 shadow-lg">
 
-                <?php if(!empty($sales)): ?>
-                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg transform transition-transform duration-300 hover:scale-110 cursor-pointer" href="compras.php?page=<?php echo $page + 1; ?>">></a>
-                <?php else: ?>
-                    <a class="px-4 py-2 rounded-xl bg-gray-100 border-1 border-gray-300/80 shadow-lg invisible" href="compras.php?page=<?php echo $page + 1; ?>">></a>
-                <?php endif; ?>
+        <!-- Prev -->
+        <?php if ($page != 0): ?>
+            <a href="compras.php?page=<?php echo $page - 1; ?>"
+               class="px-4 py-2 rounded-xl bg-gray-100 border border-gray-300 shadow hover:bg-gray-200 transition">
+                &lt;
+            </a>
+        <?php else: ?>
+            <span class="px-4 py-2 rounded-xl bg-gray-100 border border-gray-300 opacity-40 cursor-default">&lt;</span>
+        <?php endif; ?>
 
-            </span>
+        <p class="text-gray-700 font-medium">Página <?php echo $page; ?></p>
 
-        </main>
+        <!-- Next -->
+        <?php if (!empty($sales)): ?>
+            <a href="compras.php?page=<?php echo $page + 1; ?>"
+               class="px-4 py-2 rounded-xl bg-gray-100 border border-gray-300 shadow hover:bg-gray-200 transition">
+                &gt;
+            </a>
+        <?php else: ?>
+            <span class="px-4 py-2 rounded-xl bg-gray-100 border border-gray-300 opacity-40 cursor-default">&gt;</span>
+        <?php endif; ?>
 
-    </body>
+    </div>
+
+</main>
+
+</body>
 </html>

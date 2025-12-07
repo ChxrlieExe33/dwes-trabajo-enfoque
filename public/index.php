@@ -1,63 +1,92 @@
 <?php
 
-    require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-    use Cdcrane\Dwes\Services\ProductService;
-    use Cdcrane\Dwes\Utils\AuthUtils;
+use Cdcrane\Dwes\Services\ProductService;
+use Cdcrane\Dwes\Utils\AuthUtils;
 
-    session_start();
+session_start();
 
-    $products = ProductService::getNewestProductsHomePageView();
+$products = ProductService::getNewestProductsHomePageView();
 
-    $loggedIn = AuthUtils::isLoggedInAllowAll();
+$loggedIn = AuthUtils::isLoggedInAllowAll();
 
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Zapatoland home</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    </head>
-    <body class="pb-12">
-        
-        <?php require "navbar.php"; ?>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Zapatoland home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <header class="w-full min-h-[400px] bg-gradient-to-b from-blue-600 via-blue-500 to-blue-600 flex flex-col items-center justify-center gap-8 py-8 md:py-2 shadow-xl">
+    <!-- Tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-            <h1 class="text-2xl md:text-4xl font-bold text-white">¡Bienvenido a Zapatoland!</h1>
+    <!-- Modern font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-            <p class="text-lg md:text-xl text-white max-w-[90%] lg:max-w-[45%] text-center">
-                En Zapatoland vivimos y respiramos deporte. Somos el destino definitivo para los amantes del movimiento, la velocidad y el estilo. Aquí encontrarás las últimas colecciones de zapatillas deportivas de las mejores marcas y diseños que marcan tendencia.<br><br>
+    <style>
+        body { font-family: "Inter", sans-serif; }
+    </style>
+</head>
 
-                Ya sea que corras, entrenes, juegues o simplemente busques comodidad para tu día a día, en Zapatoland tenemos el par perfecto para ti.
-                Rinde al máximo, luce increíble y siente la diferencia en cada paso.
-            </p>
+<body class="bg-gray-50 pb-16">
 
-        </header>
+<?php require "navbar.php"; ?>
 
-        <h1 class="text-2xl font-bold w-full text-center py-2 md:py-8">Productos recomendados</h1>
 
-        <main class="w-full flex flex-col md:flex-row items-center justify-center gap-4 py-4">
+    <header class="w-full min-h-[420px] bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600 flex flex-col items-center justify-center text-center px-6 py-16 shadow-lg">
 
-            <?php foreach($products as $product): ?>
+        <h1 class="text-3xl md:text-5xl font-bold text-white drop-shadow-lg">
+            ¡Bienvenido a Zapatoland!
+        </h1>
 
-                <a href="producto.php?id=<?php echo $product->getId(); ?>" class="w-[90%] h-[90%] md:w-[400px] md:h-[500px] border-1 border-gray-200/80 rounded-xl shadow-xl flex flex-col gap-4 items-start justify-center py-6 px-4">
+        <p class="mt-6 text-white text-lg md:text-xl max-w-3xl leading-relaxed opacity-95">
+            En Zapatoland vivimos y respiramos deporte. Somos el destino definitivo para los amantes del movimiento, la velocidad y el estilo. Aquí encontrarás las últimas colecciones de zapatillas deportivas de las mejores marcas y diseños que marcan tendencia.
+            <br><br>
+            Ya sea que corras, entrenes, juegues o simplemente busques comodidad para tu día a día, en Zapatoland tenemos el par perfecto para ti.
+            Rinde al máximo, luce increíble y siente la diferencia en cada paso.
+        </p>
 
-                    <img class="w-full h-[80%] mb-auto" src="images/<?php echo $product->getNombreImagen(); ?>" alt="Imagen para producto <?php echo $product->getNombre(); ?>">
+    </header>
 
-                    <h1 class="text-xl font-bold"><?php echo $product->getNombre(); ?></h1>
-                    <p>€<?php echo $product->getPrecio(); ?></p>
 
-                </a>
+    <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800 py-10">
+        Productos recomendados
+    </h1>
 
-            <?php endforeach; ?>
 
-        </main>
+    <main class="w-full px-6 flex flex-col items-center justify-center md:flex-row gap-8">
 
-    </body>
+        <?php foreach($products as $product): ?>
+
+            <a href="producto.php?id=<?php echo $product->getId(); ?>"
+               class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow p-4 flex flex-col">
+
+                <div class="w-full h-64 rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center">
+                    <img
+                            src="images/<?php echo $product->getNombreImagen(); ?>"
+                            alt="Imagen para producto <?php echo $product->getNombre(); ?>"
+                            class="object-cover w-full h-full"
+                    >
+                </div>
+
+                <h1 class="mt-4 text-xl font-semibold text-gray-900">
+                    <?php echo $product->getNombre(); ?>
+                </h1>
+
+                <p class="text-lg font-medium text-blue-700">
+                    €<?php echo $product->getPrecio(); ?>
+                </p>
+
+            </a>
+
+        <?php endforeach; ?>
+
+    </main>
+
+</body>
 </html>

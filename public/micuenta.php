@@ -12,11 +12,21 @@ AuthUtils::checkLoginRedirectToLogin();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $updateData = new UserProfile($_SESSION['user_id'], $_POST['nombre'], $_POST['apellidos'], $_SESSION['email'], $_POST['fecha_nac'], 
-    $_POST['direccion_entrega'], $_POST['ciudad_entrega'], $_POST['provincia_entrega'], $_POST['direccion_facturacion'], $_POST['ciudad_facturacion'], $_POST['provincia_facturacion']);
+    $updateData = new UserProfile(
+        $_SESSION['user_id'],
+        $_POST['nombre'],
+        $_POST['apellidos'],
+        $_SESSION['email'],
+        $_POST['fecha_nac'],
+        $_POST['direccion_entrega'],
+        $_POST['ciudad_entrega'],
+        $_POST['provincia_entrega'],
+        $_POST['direccion_facturacion'],
+        $_POST['ciudad_facturacion'],
+        $_POST['provincia_facturacion']
+    );
 
     UserService::updateUserData($updateData);
-
 }
 
 if (!isset($_SESSION['user_id'])) {
@@ -33,97 +43,151 @@ $userData = UserService::getUserData($_SESSION['user_id']);
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Mi cuenta</title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
 
-    <?php include_once 'navbar.php'; ?>
+<body class="bg-gray-50 text-slate-800">
 
-    <form class="w-full px-4 md:px-[25%] py-6 flex flex-col items-center justify-start gap-4 pb-12" method="post">
+<?php include_once 'navbar.php'; ?>
 
-        <h1 class="text-2xl font-bold">Datos personales</h1>
+<form class="w-full px-4 md:px-[25%] py-10 flex flex-col items-center gap-6 pb-20" method="post">
 
-        <p><b>Correo:</b> <?php echo $userData->getEmail(); ?></p>
+    <h1 class="text-3xl font-bold">Datos personales</h1>
 
-        <section class="px-4 md:px-20 w-full flex flex-col items-start justify-items-start">
+    <p class="text-lg"><b>Correo:</b> <?php echo $userData->getEmail(); ?></p>
 
-            <label for="nombre" class="font-bold">Nombre:</label>
-            <input id="nombre" type="text" name="nombre" value="<?php echo $userData->getNombre(); ?>" placeholder="Tu nombre..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
+    <!-- Nombre -->
+    <section class="px-4 md:px-20 w-full flex flex-col gap-1">
+        <label for="nombre" class="font-semibold">Nombre:</label>
+        <input
+                id="nombre"
+                type="text"
+                name="nombre"
+                value="<?php echo $userData->getNombre(); ?>"
+                placeholder="Tu nombre..."
+                class="w-full px-6 py-2 border border-gray-300 rounded-2xl shadow-md focus:ring-2 focus:ring-slate-400"
+        >
+    </section>
 
-        </section>
+    <!-- Apellidos -->
+    <section class="px-4 md:px-20 w-full flex flex-col gap-1">
+        <label for="apellidos" class="font-semibold">Apellidos:</label>
+        <input
+                id="apellidos"
+                type="text"
+                name="apellidos"
+                value="<?php echo $userData->getApellidos(); ?>"
+                placeholder="Tus apellidos..."
+                class="w-full px-6 py-2 border border-gray-300 rounded-2xl shadow-md focus:ring-2 focus:ring-slate-400"
+        >
+    </section>
 
-        <section class="px-4 md:px-20 w-full flex flex-col items-start justify-items-start">
+    <!-- Fecha nacimiento -->
+    <section class="px-4 md:px-20 w-full flex flex-col gap-1">
+        <label for="fecha_nac" class="font-semibold">Fecha nacimiento:</label>
+        <input
+                id="fecha_nac"
+                type="date"
+                name="fecha_nac"
+                value="<?php echo $userData->getFechaNacimiento(); ?>"
+                class="w-full px-6 py-2 border border-gray-300 rounded-2xl shadow-md focus:ring-2 focus:ring-slate-400"
+        >
+    </section>
 
-            <label for="apellidos" class="font-bold">Apellidos:</label>
-            <input id="apellidos" type="text" name="apellidos" value="<?php echo $userData->getApellidos(); ?>" placeholder="Tus apellidos..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
-        
-        </section>
+    <span class="w-full h-[2px] bg-gray-300 rounded my-4"></span>
 
-        <section class="px-4 md:px-20 w-full flex flex-col items-center justify-items-start">
+    <h1 class="text-3xl font-bold">Datos de entrega</h1>
 
-            <label for="fecha_nac" class="font-bold">Fecha nacimiento:</label>
-            <input id="fecha_nac" type="date" name="fecha_nac" value="<?php echo $userData->getFechaNacimiento(); ?>" class="px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
+    <!-- Dirección entrega -->
+    <section class="px-4 md:px-20 w-full flex flex-col gap-1">
+        <label for="d_entrega" class="font-semibold">Dirección:</label>
+        <input
+                id="d_entrega"
+                type="text"
+                name="direccion_entrega"
+                value="<?php echo $userData->getDireccionEntrega(); ?>"
+                placeholder="Dirección entrega..."
+                class="w-full px-6 py-2 border border-gray-300 rounded-2xl shadow-md focus:ring-2 focus:ring-slate-400"
+        >
+    </section>
 
-        </section>
+    <!-- Ciudad entrega -->
+    <section class="px-4 md:px-20 w-full flex flex-col gap-1">
+        <label for="c_entrega" class="font-semibold">Ciudad:</label>
+        <input
+                id="c_entrega"
+                type="text"
+                name="ciudad_entrega"
+                value="<?php echo $userData->getCiudadEntrega(); ?>"
+                placeholder="Ciudad entrega..."
+                class="w-full px-6 py-2 border border-gray-300 rounded-2xl shadow-md focus:ring-2 focus:ring-slate-400"
+        >
+    </section>
 
-        <span class="w-full h-1 bg-gray-400/60 rounded-2xl my-4"></span>
+    <!-- Provincia entrega -->
+    <section class="px-4 md:px-20 w-full flex flex-col gap-1">
+        <label for="p_entrega" class="font-semibold">Provincia:</label>
+        <input
+                id="p_entrega"
+                type="text"
+                name="provincia_entrega"
+                value="<?php echo $userData->getProvinciaEntrega(); ?>"
+                placeholder="Provincia entrega..."
+                class="w-full px-6 py-2 border border-gray-300 rounded-2xl shadow-md focus:ring-2 focus:ring-slate-400"
+        >
+    </section>
 
-        <h1 class="text-2xl font-bold">Datos de entrega</h1>
+    <span class="w-full h-[2px] bg-gray-300 rounded my-4"></span>
 
-        <section class="px-4 md:px-20 w-full flex flex-col items-start justify-items-start">
+    <h1 class="text-3xl font-bold">Datos de facturación</h1>
 
-            <label for="d_entrega" class="font-bold">Dirección:</label>
-            <input id="d_entrega" type="text" name="direccion_entrega" value="<?php echo $userData->getDireccionEntrega(); ?>" placeholder="Direccion entrega..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
+    <!-- Dirección facturación -->
+    <section class="px-4 md:px-20 w-full flex flex-col gap-1">
+        <label for="d_fac" class="font-semibold">Dirección:</label>
+        <input
+                id="d_fac"
+                type="text"
+                name="direccion_facturacion"
+                value="<?php echo $userData->getDireccionFacturacion(); ?>"
+                placeholder="Dirección facturación..."
+                class="w-full px-6 py-2 border border-gray-300 rounded-2xl shadow-md focus:ring-2 focus:ring-slate-400"
+        >
+    </section>
 
-        </section>   
+    <!-- Ciudad facturación -->
+    <section class="px-4 md:px-20 w-full flex flex-col gap-1">
+        <label for="c_fac" class="font-semibold">Ciudad:</label>
+        <input
+                id="c_fac"
+                type="text"
+                name="ciudad_facturacion"
+                value="<?php echo $userData->getCiudadFacturacion(); ?>"
+                placeholder="Ciudad facturación..."
+                class="w-full px-6 py-2 border border-gray-300 rounded-2xl shadow-md focus:ring-2 focus:ring-slate-400"
+        >
+    </section>
 
-        <section class="px-4 md:px-20 w-full flex flex-col items-start justify-items-start">
+    <!-- Provincia facturación -->
+    <section class="px-4 md:px-20 w-full flex flex-col gap-1">
+        <label for="p_fac" class="font-semibold">Provincia:</label>
+        <input
+                id="p_fac"
+                type="text"
+                name="provincia_facturacion"
+                value="<?php echo $userData->getProvinciaFacturacion(); ?>"
+                placeholder="Provincia facturación..."
+                class="w-full px-6 py-2 border border-gray-300 rounded-2xl shadow-md focus:ring-2 focus:ring-slate-400"
+        >
+    </section>
 
-            <label for="c_entrega" class="font-bold">Ciudad:</label>
-            <input id="c_entrega" type="text" name="ciudad_entrega" value="<?php echo $userData->getCiudadEntrega(); ?>" placeholder="Ciudad entrega..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
-        
-        </section>   
+    <button
+            type="submit"
+            class="px-8 py-3 mt-4 rounded-2xl bg-slate-800 text-white font-bold text-lg shadow-lg hover:scale-[1.05] transition-transform duration-300">
+        Actualizar
+    </button>
 
-        <section class="px-4 md:px-20 w-full flex flex-col items-start justify-items-start">
-
-            <label for="p_entrega" class="font-bold">Provincia:</label>
-            <input id="p_entrega" type="text" name="provincia_entrega" value="<?php echo $userData->getProvinciaEntrega(); ?>" placeholder="Provincia entrega..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
-
-        
-        </section>
-
-        <span class="w-full h-1 bg-gray-400/60 rounded-2xl my-4"></span>
-
-        <h1 class="text-2xl font-bold">Datos de facturación</h1>
-
-        <section class="px-4 md:px-20 w-full flex flex-col items-start justify-items-start">
-
-            <label for="d_fac" class="font-bold">Dirección:</label>
-            <input id="d_fac" type="text" name="direccion_facturacion" value="<?php echo $userData->getDireccionFacturacion(); ?>" placeholder="Direccion facturacion..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
-
-        
-        </section>   
-
-        <section class="px-4 md:px-20 w-full flex flex-col items-start justify-items-start">
-
-            <label for="c_fac" class="font-bold">Ciudad:</label>
-            <input id="c_fac" type="text" name="ciudad_facturacion" value="<?php echo $userData->getCiudadFacturacion(); ?>" placeholder="Ciudad facturacion..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
-
-        
-        </section>   
-
-        <section class="px-4 md:px-20 w-full flex flex-col items-start justify-items-start">
-
-            <label for="p_fac" class="font-bold">Provincia:</label>
-            <input id="p_fac" type="text" name="provincia_facturacion" value="<?php echo $userData->getProvinciaFacturacion(); ?>" placeholder="Provincia facturacion..." class="w-full px-6 py-2 border-1 border-gray-300/90 rounded-2xl shadow-lg">
-        
-        </section>
-
-        <button type="submit" class="px-6 py-2 rounded-2xl bg-slate-800 font-bold text-white shadow-xl transform transition-transform duration-300 hover:scale-110 cursor-pointer">Actualizar</button>
-
-    </form>
+</form>
 
 </body>
 
