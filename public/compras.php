@@ -39,8 +39,9 @@ $sales = SaleService::getAllSalesPaginated($page);
 
     <?php foreach($sales as $entry): ?>
 
+
         <section
-                class="w-full bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-md border border-gray-200 flex flex-col md:flex-row md:items-center md:justify-between gap-2 hover:shadow-xl transition-all"
+                class="w-full bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-md border border-gray-200 flex flex-col md:grid md:grid-cols-4 gap-2 hover:shadow-xl transition-all"
         >
             <p class="text-gray-700 font-medium">#<?php echo $entry->getId(); ?></p>
 
@@ -50,7 +51,7 @@ $sales = SaleService::getAllSalesPaginated($page);
                 <span class="font-semibold"><?php echo $entry->getProvEntrega(); ?></span>
             </p>
 
-            <b class="text-lg text-blue-700">€<?php echo $entry->getTotal(); ?></b>
+            <b class="text-lg text-blue-700 place-self-end">€<?php echo $entry->getTotal(); ?></b>
         </section>
 
     <?php endforeach; ?>
