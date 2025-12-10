@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Cdcrane\Dwes\requests\UpdateProductDataRequest;
+use Cdcrane\Dwes\Requests\UpdateProductDataRequest;
 use Cdcrane\Dwes\Utils\AuthUtils;
 use Cdcrane\Dwes\Services\ProductService;
 

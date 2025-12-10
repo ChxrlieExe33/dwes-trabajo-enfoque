@@ -3,7 +3,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Cdcrane\Dwes\Utils\AuthUtils;
-use Cdcrane\Dwes\requests\SaveNewProductRequest;
+use Cdcrane\Dwes\Requests\SaveNewProductRequest;
 use Cdcrane\Dwes\Services\ProductService;
 
 session_start();

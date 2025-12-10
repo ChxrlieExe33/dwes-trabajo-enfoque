@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Cdcrane\Dwes\Utils\AuthUtils;
-use Cdcrane\Dwes\services\SaleService;
+use Cdcrane\Dwes\Services\SaleService;
 
 session_start();
 

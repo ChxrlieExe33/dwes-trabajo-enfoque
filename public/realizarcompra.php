@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Cdcrane\Dwes\requests\CompleteSaleRequest;
+use Cdcrane\Dwes\Requests\CompleteSaleRequest;
 use Cdcrane\Dwes\Services\CarritoService;
-use Cdcrane\Dwes\services\SaleService;
+use Cdcrane\Dwes\Services\SaleService;
 use Cdcrane\Dwes\Services\UserService;
 use Cdcrane\Dwes\Utils\AuthUtils;
 

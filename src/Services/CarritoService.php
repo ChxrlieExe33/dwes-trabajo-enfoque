@@ -2,7 +2,7 @@
 
 namespace Cdcrane\Dwes\Services;
 
-use Cdcrane\Dwes\models\CartEntryView;
+use Cdcrane\Dwes\Models\CartEntryView;
 use PDO;
 use PDOException;
 

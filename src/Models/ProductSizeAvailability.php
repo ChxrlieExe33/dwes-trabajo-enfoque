@@ -1,6 +1,6 @@
 <?php
 
-namespace Cdcrane\Dwes\models;
+namespace Cdcrane\Dwes\Models;
 
 class ProductSizeAvailability {
 

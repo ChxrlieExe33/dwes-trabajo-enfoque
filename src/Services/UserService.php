@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cdcrane\Dwes\Services;
 
-use Cdcrane\Dwes\models\UserListView;
+use Cdcrane\Dwes\Models\UserListView;
 use Cdcrane\Dwes\Models\UserPersonalDataAndRole;
 use Cdcrane\Dwes\Models\UserProfile;
 use PDO;

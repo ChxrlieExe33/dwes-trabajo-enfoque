@@ -7,6 +7,8 @@ use Cdcrane\Dwes\Services\ProductService;
 
 session_start();
 
+AuthUtils::restrictPageAdminOnly();
+
 if(!isset($_GET['id'])) {
     header("Location: productos.php");
 }

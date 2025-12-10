@@ -6,9 +6,9 @@ namespace Cdcrane\Dwes\Services;
 
 use Cdcrane\Dwes\Models\HomepageProduct;
 use Cdcrane\Dwes\Models\ProductDetail;
-use Cdcrane\Dwes\models\ProductSizeAvailability;
-use Cdcrane\Dwes\requests\SaveNewProductRequest;
-use Cdcrane\Dwes\requests\UpdateProductDataRequest;
+use Cdcrane\Dwes\Models\ProductSizeAvailability;
+use Cdcrane\Dwes\Requests\SaveNewProductRequest;
+use Cdcrane\Dwes\Requests\UpdateProductDataRequest;
 use PDO;
 use PDOException;
 

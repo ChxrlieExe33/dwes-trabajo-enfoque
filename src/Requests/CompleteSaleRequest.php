@@ -1,6 +1,6 @@
 <?php 
 
-namespace Cdcrane\Dwes\requests;
+namespace Cdcrane\Dwes\Requests;
 
 class CompleteSaleRequest {
 

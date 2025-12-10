@@ -1,22 +1,24 @@
 <?php
 
-namespace Cdcrane\Dwes\requests;
+namespace Cdcrane\Dwes\Requests;
 
-class UpdateProductDataRequest {
+class SaveNewProductRequest {
 
-private $name;
+    private $name;
     private $description;
     private $price;
     private $colour;
     private $factoryName;
+    private $imagesFromForm;
 
-    public function __construct($name, $desc, $price, $colour, $facName)
+    public function __construct($name, $desc, $price, $colour, $facName, $imgsFromForm)
     {
         $this->name = $name;
         $this->description = $desc;
         $this->price = $price;
         $this->colour = $colour;
         $this->factoryName = $facName;
+        $this->imagesFromForm = $imgsFromForm;
     }
 
     public function getName() {
@@ -39,4 +41,7 @@ private $name;
         return $this->factoryName;
     }
 
+    public function getImages() {
+        return $this->imagesFromForm;
+    }
 }

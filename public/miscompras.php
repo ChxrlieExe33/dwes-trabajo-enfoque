@@ -5,7 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 use Cdcrane\Dwes\Utils\AuthUtils;
-use Cdcrane\Dwes\services\SaleService;
+use Cdcrane\Dwes\Services\SaleService;
 
 AuthUtils::checkLoginRedirectToLogin();
 

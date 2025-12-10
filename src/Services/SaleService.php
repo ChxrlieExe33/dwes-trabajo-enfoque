@@ -1,9 +1,9 @@
 <?php 
 
-namespace Cdcrane\Dwes\services;
+namespace Cdcrane\Dwes\Services;
 
-use Cdcrane\Dwes\models\SaleListView;
-use Cdcrane\Dwes\requests\CompleteSaleRequest;
+use Cdcrane\Dwes\Models\SaleListView;
+use Cdcrane\Dwes\Requests\CompleteSaleRequest;
 use Cdcrane\Dwes\Services\CarritoService;
 use Cdcrane\Dwes\Services\DBConnFactory;
 use PDO;

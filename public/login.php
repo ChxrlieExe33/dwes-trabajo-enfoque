@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '\/..\/vendor\/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Cdcrane\Dwes\Services\AuthService;
 use Cdcrane\Dwes\Utils\AuthUtils;
