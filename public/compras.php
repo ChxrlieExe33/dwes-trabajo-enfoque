@@ -40,7 +40,8 @@ $sales = SaleService::getAllSalesPaginated($page);
     <?php foreach($sales as $entry): ?>
 
 
-        <section
+        <a
+                href="compra.php?id=<?php echo $entry->getId(); ?>"
                 class="w-full bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-md border border-gray-200 flex flex-col md:grid md:grid-cols-4 gap-2 hover:shadow-xl transition-all"
         >
             <p class="text-gray-700 font-medium">#<?php echo $entry->getId(); ?></p>
@@ -52,7 +53,7 @@ $sales = SaleService::getAllSalesPaginated($page);
             </p>
 
             <b class="text-lg text-blue-700 place-self-end">€<?php echo $entry->getTotal(); ?></b>
-        </section>
+        </a>
 
     <?php endforeach; ?>
 

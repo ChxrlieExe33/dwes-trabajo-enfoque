@@ -31,14 +31,14 @@ $myPurchases = SaleService::getSalesByCustomerId($_SESSION['user_id']);
 
             <?php foreach($myPurchases as $entry): ?>
 
-                <section class="w-full p-6 border-b-2 border-gray-300/90 flex flex-col items-start gap-2 justify-between md:grid md:grid-cols-4">
+                <a href="compra.php?id=<?php echo $entry->getId(); ?>" class="w-full p-6 border-b-2 border-gray-300/90 flex flex-col items-start gap-2 justify-between md:grid md:grid-cols-4">
 
                     <b>#<?php echo $entry->getId(); ?></b>
                     <p><?php echo $entry->getDate(); ?></p>
                     <p>Entrega: <?php echo $entry->getProvEntrega(); ?></p>
                     <b class="md:place-self-end text-blue-600">€<?php echo $entry->getTotal(); ?></b>
 
-                </section>
+                </a>
 
             <?php endforeach; ?>
 
