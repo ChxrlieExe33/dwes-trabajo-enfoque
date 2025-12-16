@@ -3,6 +3,8 @@
 namespace Cdcrane\Dwes\Services;
 
 use Cdcrane\Dwes\Models\SaleListView;
+use Cdcrane\Dwes\Models\SaleProductEntry;
+use Cdcrane\Dwes\Models\SaleDetailData;
 use Cdcrane\Dwes\Requests\CompleteSaleRequest;
 use Cdcrane\Dwes\Services\CarritoService;
 use Cdcrane\Dwes\Services\DBConnFactory;
@@ -202,6 +204,49 @@ class SaleService {
         return array_map(function ($row) {
             return new SaleListView($row['id_compra'], $row['fecha'], $row['importe'], $row['provincia_entrega']);
         }, $data);        
+
+    }
+
+    public static function getSaleDetailById(int $id) {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $getSaleDataSql = 'SELECT * FROM compras WHERE id_compra = :saleId';
+
+        $getSaleDataStmt = $pdo->prepare($getSaleDataSql);
+        $getSaleDataStmt->execute([
+            ':saleId' => (int)$id
+        ]);
+
+        $saleData = $getSaleDataStmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$_SESSION['es_admin']) {
+
+            if ($saleData['id_usuario'] !== $_SESSION['user_id']) {
+                die("Usuario " . $_SESSION['user_id'] . " no puede acceder a venta de usuario " . $saleData['id_usuario']);
+            }
+
+        }
+
+        return new SaleDetailData($saleData['id_compra'], $saleData['fecha'], $saleData['direccion_entrega'], $saleData['ciudad_entrega'], $saleData['provincia_entrega'], $saleData['direccion_facturacion'], $saleData['ciudad_facturacion'], $saleData['provincia_facturacion'], $saleData['importe']);
+
+    }
+
+    public static function getSaleProductsBySaleId(int $saleId) {
+
+        $pdo = DBConnFactory::getConnection();
+
+        $sql = 'SELECT p.nombre AS name, pc.id_producto as id, pc.tamano as sz, pc.cantidad as quant FROM productos_compras pc JOIN productos p ON p.id_producto = pc.id_producto WHERE pc.id_compra = :id';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':id' => $saleId
+        ]);
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(function($row){
+            return new SaleProductEntry($row['name'], $row['id'], $row['sz'], $row['quant']);
+        }, $data);
 
     }
 }
